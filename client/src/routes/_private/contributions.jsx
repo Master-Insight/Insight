@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { getLanguajes, getProfessions, getFrameworks, getContributions, postContributions, updateContribution, deleteContribution, getAppLinks } from '../../modules/contributions/contributions.services';
+import { getLanguajes, getProfessions, getFrameworks, getContributions, postContributions, updateContribution, deleteContribution, getAppLinks } from '../../apis/contributions.services';
 import { useEffect, useState } from 'react';
 import Frame from '../../modules/layout/frame/Frame';
 import SectionWFilters from '../../modules/layout/frame/Section.Filter';
