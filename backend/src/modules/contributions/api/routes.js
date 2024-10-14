@@ -17,4 +17,6 @@ router
 .put   ('/:eid',   handleAuth(users), celebrate(validSchema.update),  controller.updateId)
 .delete('/:eid',   handleAuth(users), controller.deleteId)
 
+.get   ('/user/:uid', handleAuth(users), controller.getContributionsByUser)
+
 export default router

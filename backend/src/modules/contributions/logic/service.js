@@ -9,6 +9,12 @@ export default class Service extends CustomService {
     this.daoUsers = new DaoUsers();
   }
 
+  getContributionsByUser = async (userId) => {
+    const contributions = await this.dao.get({ contributedBy: userId })
+    if (!contributions.length) throw new AppError("El usuario no tiene contribuciones", 404)
+    return contributions
+  }
+
   isValidUser = async (filter) => {
     const isValidUser = await this.daoUsers.exists(filter)
     if (!isValidUser) throw new AppError("El usuario no existe", 400)

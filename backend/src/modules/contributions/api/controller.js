@@ -44,4 +44,17 @@ export default class Controller extends CustomController {
       next(error)
     }
   }
+
+  getContributionsByUser = async (req, res, next) => {
+    try {
+      const { uid } = req.params;
+      if (!uid) {return res.sendUserError("Usuario no indicado")}
+
+      const contributions = await this.service.getContributionsByUser(uid);
+      res.sendSuccess(contributions);
+
+    } catch (error) {
+      next(error)
+    }
+  } 
 }
