@@ -22,7 +22,7 @@ export default function useAuthApi() {
       const token = data.data.token;
       await signIn(token);
       await getUser()
-      navigate({ to: '/private' });
+      navigate({ to: '/profile' });
 
       console.log(`${option === 'login' ? 'Login' : 'Register'} successful`, data.message); // <------------ Reemplazar por Notificacion
 
