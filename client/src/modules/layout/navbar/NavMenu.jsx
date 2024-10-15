@@ -3,8 +3,6 @@ import { Link } from "@tanstack/react-router";
 const publicNavItems = [
   { name: 'Home', path: '/' },
   { name: 'Login', path: '/login' },
-  { name: 'Register', path: '/register' },
-  { name: 'Private', path: '/private' },
 ];
 
 const privateNavItems = [
