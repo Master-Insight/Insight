@@ -14,10 +14,8 @@ import Contributions from './PageUser/Contributions';
 const PageUser = ({user}) => {
   const { currentUserName } = useAppStore()
   const itsMyProfile = user.username === currentUserName
-
-
+  
   console.log("user: ",user);
-  // console.log("itsMyProfile: ", itsMyProfile);
 
   function handleAction(data) {
     updateCurrentUser(data)
@@ -39,7 +37,10 @@ const PageUser = ({user}) => {
       {/* Sección con información del usuario */}
       <UserData user={user} itsMyProfile={itsMyProfile} action={handleAction} />
       <UserBio user={user} itsMyProfile={itsMyProfile} action={handleAction} />
-      <Contributions user={user} itsMyProfile={itsMyProfile} action={handleAction} />
+
+      { currentUserName &&
+        <Contributions user={user} itsMyProfile={itsMyProfile} action={handleAction} />}
+      
 
       <Proyects/>
       <Experience/>
