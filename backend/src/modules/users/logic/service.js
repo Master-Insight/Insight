@@ -12,6 +12,7 @@ export default class Service extends CustomService {
   }
 
   get = async (filter, excludePassword = true )  => await this.dao.get   (filter, excludePassword)
+  getSelective = async (filter, select = {} )  => await this.dao.getSelective   (filter, select)
   getBy = async (filter, excludePassword = true) => await this.dao.getBy (filter, excludePassword)
 
   // ACTUALIZACION DE IMAGEN

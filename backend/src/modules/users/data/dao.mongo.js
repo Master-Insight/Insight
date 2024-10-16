@@ -14,6 +14,12 @@ export default class ThisDaoMongo extends DaoMongo {
     return await query.exec();
   };
 
+  getSelective = async (filter = {}, select = {}) => {
+    let query = this.model.find(filter, select);
+    query = query.select('-password');
+    return await query.exec();
+  };
+
   getBy = async (filter, excludePassword = true) => {
     let query = this.model.findOne(filter)
     if (excludePassword) {

@@ -12,6 +12,7 @@ const controller = new Controller()
 router
 // public
 .get    ('/associates', controller.getAssociates)
+.get    ('/associatesselective', controller.getAssociatesLSelective)
 .get    ('/associate/:username', controller.getAssociate)
 
 // user

@@ -20,6 +20,15 @@ export default class Controller extends CustomController {
     }
   }
 
+  getAssociatesLSelective =  async (req, res) => {
+    try {
+      const associates = await this.service.getSelective({public: true},  { _id: 1, full_name: 1, email: 1 }) 
+      res.sendSuccess(associates)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   getAssociate =  async (req, res) => {
     try {
       const { username } = req.params
