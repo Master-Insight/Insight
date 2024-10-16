@@ -9,6 +9,7 @@ import { useAppStore } from '../../store/useAppStore';
 import { BiBookmark, BiClipboard, BiCodeBlock, BiCode, BiBriefcase } from 'react-icons/bi';
 import { z } from 'zod';
 import { alertBasic } from '../../modules/alerts/alerts';
+import { getShortAssociates } from '../../apis/users.services';
 
 
 
@@ -25,14 +26,15 @@ function ContributionsPage () {
   const [error, setError] = useState(false);
 
   const [contributions, setContributions] = useState(Route.useLoaderData());
-  const [languages, setLanguages] = useState();
-  const [professions, setProfessions] = useState();
-  const [frameworks, setFrameworks] = useState();
-  const [apps, setApps] = useState();
+  const [languages, setLanguages] = useState([]);
+  const [professions, setProfessions] = useState([]);
+  const [frameworks, setFrameworks] = useState([]);
+  const [apps, setApps] = useState([]);
+  const [filterusers, setFilterUsers] = useState({});
   const { currentUser } = useAppStore();
 
   const [isFilterLoading, setIsFilterLoading] = useState(false);
-
+  
   useEffect(() => {
     const fetchContributions = async () => {
       setIsLoading(true);
@@ -54,11 +56,13 @@ function ContributionsPage () {
     const fetchFilters = async () => {
       setIsFilterLoading(true);
       try {
-        const [languagesResp, professionsResp, frameworksResp, appsResp] = await Promise.all([getLanguajes(), getProfessions(), getFrameworks(), getAppLinks()]);
+        const [languagesResp, professionsResp, frameworksResp, appsResp, usersResp] = await Promise.all([getLanguajes(), getProfessions(), getFrameworks(), getAppLinks(), getShortAssociates()]);
         setLanguages(languagesResp);
         setProfessions(professionsResp);
         setFrameworks(Object.values(frameworksResp).flat());
-        setApps(appsResp)
+        setApps(appsResp);
+        setFilterUsers(usersResp)
+        
       } catch (err) {
         console.log(err);
         setError('Hubo un error al cargar los select');
@@ -71,6 +75,7 @@ function ContributionsPage () {
 
   const config = {
     filters: [
+      { key: "user", label: "Usuario", type: "select", options: ["a", "b"]  },
       { key: "title", label: "Título", type: "text" },
       { key: "professions", label: "Profesiones", type: "select", options: professions },
       { key: "languages", label: "Lenguaje", type: "select", options: languages },
