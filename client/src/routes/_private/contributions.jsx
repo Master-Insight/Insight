@@ -33,6 +33,8 @@ function ContributionsPage () {
   const [filterusers, setFilterUsers] = useState({});
   const { currentUser } = useAppStore();
 
+  console.log(filterusers);
+  
   const [isFilterLoading, setIsFilterLoading] = useState(false);
   
   useEffect(() => {
@@ -61,7 +63,8 @@ function ContributionsPage () {
         setProfessions(professionsResp);
         setFrameworks(Object.values(frameworksResp).flat());
         setApps(appsResp);
-        setFilterUsers(usersResp)
+        const orderUser = usersResp.sort((a, b) => a.full_name.localeCompare(b.full_name)).map(user => ({ value: user._id, label: user.full_name }))
+        setFilterUsers(orderUser)
         
       } catch (err) {
         console.log(err);
@@ -75,7 +78,7 @@ function ContributionsPage () {
 
   const config = {
     filters: [
-      { key: "user", label: "Usuario", type: "select", options: ["a", "b"]  },
+      { key: "user", label: "Usuario", type: "select", object: "full_name", options: ["a", "b"], function: (value)=>{return value+"a"} }, //filterusers
       { key: "title", label: "Título", type: "text" },
       { key: "professions", label: "Profesiones", type: "select", options: professions },
       { key: "languages", label: "Lenguaje", type: "select", options: languages },
