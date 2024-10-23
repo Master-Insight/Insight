@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 const publicNavItems = [
   { name: 'Home', path: '/' },
+  { name: 'Insighter', path: '/members' },
   { name: 'Login', path: '/login' },
 ];
 
