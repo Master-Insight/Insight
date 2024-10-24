@@ -37,10 +37,14 @@ const SectionWFilters = ({
 
         if (filterValue) {
           filtered = filtered.filter((item) => {
-            const itemValue = item[filterKey];
-            
-            // Comparamos los valores directamente sin usar toLowerCase
-            return itemValue && itemValue.includes(filterValue);
+            if (filterKey === "user") {
+              // Filtrar por el ID del usuario contribuyente
+              return item.contributedBy && item.contributedBy._id === filterValue;
+            } else {
+              // Filtrar por los demás campos
+              const itemValue = item[filterKey];
+              return itemValue && itemValue.includes(filterValue);
+            }
           });
         }
       });

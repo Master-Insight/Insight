@@ -78,7 +78,7 @@ function ContributionsPage () {
 
   const config = {
     filters: [
-      { key: "user", label: "Usuario", type: "select", object: "full_name", options: ["a", "b"], function: (value)=>{return value+"a"} }, //filterusers
+      { key: "user", label: "Usuario", type: "select", object: "label", options: filterusers, function: (value)=>{return value+"a"} }, //filterusers options: ["a", "b"]
       { key: "title", label: "Título", type: "text" },
       { key: "professions", label: "Profesiones", type: "select", options: professions },
       { key: "languages", label: "Lenguaje", type: "select", options: languages },
