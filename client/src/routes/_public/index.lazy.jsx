@@ -9,19 +9,13 @@ function Home() {
   return (
     <Frame>
       <h1 className="text-3xl font-bold text-center mb-8">Insight</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <div className="col-span-1 md:col-span-2">
           <p className="text-lg mb-4">
-            Bienvenido a <strong>Insight</strong>, una plataforma donde profesionales muestran su
-            trabajo y contribuciones de manera clara y transparente.
+            Bienvenido a <strong>Insight</strong>, una marca de profesionales que comparten una visión común de compromiso, integridad y colaboración. Nos destacamos por nuestro enfoque en la calidad, la claridad en las comunicaciones, y un profundo respeto por el esfuerzo y el trabajo de los demás. Solo aquellos que demuestren un alto nivel de integridad y compromiso pueden formar parte de nuestra comunidad.
           </p>
           <p className="text-lg mb-4">
-            Aquí encontrarás portfolios personales que destacan lo mejor de cada asociado y sus
-            contribuciones al grupo.
-          </p>
-          <p className="text-lg mb-4">
-            Nos centramos en la integridad, la colaboración y el crecimiento de nuestros
-            miembros.
+            <strong>Diferenciación:</strong> Nos diferenciamos por ser un grupo selecto que no solo entiende, sino que supera las expectativas de nuestros clientes. A través de la cooperación, la transparencia y el uso eficiente de datos, ofrecemos soluciones que cumplen con lo pactado y añaden un valor real.
           </p>
           <p className="text-lg mb-4">
             Actualmente, estamos desarrollando la página, por lo que podrás explorar los portfolios y contribuciones individuales para conocer mejor el impacto de cada profesional.
@@ -46,3 +40,5 @@ function Home() {
     </Frame>
   );
 }
+
+export default Home;
