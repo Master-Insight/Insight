@@ -164,6 +164,7 @@ function ContributionsPage () {
           type: "text",
           validation: z.string().url("Debe ser una URL válida")
         }],
+        default: [],
       }
     ],
     card: Card,
