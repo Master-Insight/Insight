@@ -16,3 +16,7 @@ export const roleMiddleware = (allowedRoles = []) => (req, res, next) => {
   
   next();
 };
+
+export const isPublic = ["PUBLIC"]
+export const users    = ["USER", "CLIENT"]
+export const clients  = ["CLIENT"]

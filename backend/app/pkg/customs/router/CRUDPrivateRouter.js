@@ -11,11 +11,11 @@ class CRUDRouter extends CustomRouter {
 
   // Configurar rutas CRUD básicas
   setCrudRoutes() {
-    this.addRoute('get', '/', [this.authMiddleware, this.roleMiddleware('Admin')], this.controller.getAll); // GET all users
-    this.addRoute('get', '/:id', [this.authMiddleware, this.roleMiddleware('Admin')], this.controller.getById); // GET user by ID
-    this.addRoute('post', '/', [this.authMiddleware, this.roleMiddleware('Admin')], this.controller.create); // POST new user
-    this.addRoute('put', '/:id', [this.authMiddleware, this.roleMiddleware('Admin')], this.controller.update); // PUT update user
-    this.addRoute('delete', '/:id', [this.authMiddleware, this.roleMiddleware('Admin')], this.controller.delete); // DELETE user
+    this.addRoute('get', '/', [this.authMiddleware, this.roleMiddleware(roles)], this.controller.getAll); // GET all users
+    this.addRoute('get', '/:id', [this.authMiddleware, this.roleMiddleware(roles)], this.controller.getById); // GET user by ID
+    this.addRoute('post', '/', [this.authMiddleware, this.roleMiddleware(roles)], this.controller.create); // POST new user
+    this.addRoute('put', '/:id', [this.authMiddleware, this.roleMiddleware(roles)], this.controller.update); // PUT update user
+    this.addRoute('delete', '/:id', [this.authMiddleware, this.roleMiddleware(roles)], this.controller.delete); // DELETE user
   }
 }
 

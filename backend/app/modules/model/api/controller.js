@@ -1,7 +1,7 @@
-import CustomController from "../../../libraries/customs/controller.js";
+import { MongoController } from "../../../pkg/customs/controller/controller.mongoose.js";
 import Service from "../logic/service.js";
 
-export default class Controller extends CustomController {
+export default class Controller extends MongoController {
   constructor() {
     super(new Service);
   }
