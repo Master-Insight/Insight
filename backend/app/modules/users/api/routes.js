@@ -1,29 +1,32 @@
-import { Router } from "express";
-import Controller from "./controller.js";
 import { clients, handleAuth, users } from "../../../../app/pkg/middleware/handlePolicies.js";
 import { uploader } from "../../../../app/pkg/middleware/multer.js";
-import { celebrate } from "celebrate";
+import CustomRouter from "../../../pkg/customs/router/Router.js";
+import Controller from "./controller.js";
 
-const router = Router();
 const controller = new Controller()
 
 // http://localhost:8080/v1/users/
 
-router
-// public
-.get    ('/associates', controller.getAssociates)
-.get    ('/associatesselective', controller.getAssociatesLSelective)
-.get    ('/associate/:username', controller.getAssociate)
+class UserRouter extends CustomRouter {
+  constructor() {
+    super();
 
-// user
-.get    ('/current',        handleAuth(users),   controller.getUserSession)
-.put    ('/current/update', handleAuth(users),   controller.currentUpdate)
-.put    ('/current/uploadphoto',  
-  handleAuth(users), 
-  uploader(5, ['image/jpeg', 'image/jpg', 'image/png'], true).single('photo'),
-  controller.uploadPhoto)
-  
-// Admins
-.get    ('/',               handleAuth(['ADMIN']), controller.get)
+    // * Public
+    this.addRoute('get', '/associates', [], controller.getPublicAssociates);
+    this.addRoute('get', '/associatesselective', [], controller.getPublicAssociatesLSelective);
+    this.addRoute('get', '/associate/:username', [], controller.getAssociate);
 
-export default router
+    // * User
+    this.addRoute('get', '/current', [ handleAuth(users) ], controller.getUserSession);
+    this.addRoute('put', '/current/update', [ handleAuth(users) ], controller.currentUpdate);
+    this.addRoute('put', '/current/uploadphoto', [ 
+      handleAuth(users),
+      uploader(5, ['image/jpeg', 'image/jpg', 'image/png'], true).single('photo') ],
+      controller.uploadPhoto);
+
+    // * Admins
+    this.addRoute('get', '/', [ handleAuth(['ADMIN']) ], controller.get);
+  }
+}
+
+export default new UserRouter().getRouter();

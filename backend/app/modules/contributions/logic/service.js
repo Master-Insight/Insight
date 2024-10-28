@@ -1,4 +1,4 @@
-import CustomService from "../../../pkg/customs/service.js";
+import CustomService from "../../../pkg/customs/service/service.js";
 import ThisDaoMongo from "../data/dao.mongo.js";
 import AppError from "../../../pkg/errors/AppError.js";
 import DaoUsers from "../../users/data/dao.mongo.js";

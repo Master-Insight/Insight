@@ -1,5 +1,5 @@
 import configEnv from "../../../pkg/services/env/env.js";
-import CustomService from "../../../pkg/customs/service.js";
+import CustomService from "../../../pkg/customs/service/service.js";
 import createToken from "./createToken.js";
 import { createHashAsync, isValidPasswordAsync } from "./passwords.js";
 import ThisDaoMongo from "../../../modules/users/data/dao.mongo.js";

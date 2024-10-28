@@ -1,4 +1,4 @@
-import CustomController from "../../../pkg/customs/controller.js";
+import CustomController from "../../../pkg/customs/controller/controller.js";
 import Service from "../logic/service.js";
 
 export default class Controller extends CustomController {
