@@ -34,7 +34,7 @@ export default class Service extends MongoService {
     return await this.dao.get(filter, finalProjection, options);
   };
   getBy = async (filter, projection = null) => {
-    const finalProjection = this.handleProjection(projection);
+    const finalProjection = this.handlePasswordProjection(projection);
     return await this.dao.getBy(filter, finalProjection);
   };
 
