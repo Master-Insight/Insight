@@ -8,8 +8,8 @@ const ContributionsCard = ({item}) => {
   return (
     <div key={item._id} className="border-b border-gray-200 p-4 mb-4">
       <div className="mb-4 flex items-center">
-        <Icon name={language} category="languages" className="mr-2" />
-        <Icon name={framework} category="frameworks" className="mr-2" />
+        {language && <Icon name={language} category="languages" className="mr-2" />}
+        {framework && <Icon name={framework} category="frameworks" className="mr-2" />}
         <h3 className="text-xl">{item.title}</h3>
       </div>
       {/* <p className="text-gray-600">{item.description}</p> */}
