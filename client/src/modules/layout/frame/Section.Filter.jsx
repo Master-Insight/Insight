@@ -18,7 +18,7 @@ const SectionWFilters = ({
   const [activeFilters, setActiveFilters] = useState({});
 
   //console.log("data: ",filteredData);
-  console.log("activeFilters: ",activeFilters);
+  // console.log("activeFilters: ",activeFilters);
   // Maneja cambios en los filtros
   const handleFilterChange = (filterKey, filterValue) => {
     setActiveFilters((prevFilters) => ({

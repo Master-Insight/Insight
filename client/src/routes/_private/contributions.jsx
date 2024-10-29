@@ -136,14 +136,14 @@ function ContributionsPage () {
         type: "array",
         itemType: "select",
         enum: frameworks ,
-        default: [""], 
+        default: [], 
       },
       { name: "libraries", 
         label: "Librerias", 
         icon: BiBookmark, 
         type: "array",
         itemType: "text",
-        default: [""],
+        default: [],
       },
       { name: "links", 
         label: "Links", 
@@ -171,6 +171,7 @@ function ContributionsPage () {
     currentUserId: currentUser._id,
     actions: {
       postApi: async function (value) {
+        console.log(value);
         setIsLoading(true);
         try {
           await postContributions(value)
