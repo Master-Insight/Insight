@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { getContributions, postContributions, updateContribution, deleteContribution  } from '../../apis/contributions.services';
 import { getLanguajes, getProfessions, getFrameworks, getAppLinks } from '../../apis/values.services';
 import { useEffect, useState } from 'react';
@@ -8,19 +8,27 @@ import Card from '../../modules/contributions/Card';
 import { useAppStore } from '../../store/useAppStore';
 import { BiBookmark, BiClipboard, BiCodeBlock, BiCode, BiBriefcase } from 'react-icons/bi';
 import { z } from 'zod';
+import { zodSearchValidator } from '@tanstack/router-zod-adapter'
 import { alertBasic } from '../../modules/alerts/alerts';
 import { getShortAssociates } from '../../apis/users.services';
 
-
-
+const titleSearchSchema = z.object({
+  title: z.string().optional(),
+})
+// https://tanstack.com/router/latest/docs/framework/react/guide/search-params
 export const Route = createFileRoute('/_private/contributions')({
   loader: async () => {
     return getContributions()
   },
+  validateSearch: zodSearchValidator(titleSearchSchema),
   component: ContributionsPage,
 })
 
 function ContributionsPage () {
+  const { title } = Route.useSearch()
+  console.log(title);
+  
+
   const [isLoading, setIsLoading] = useState(true);
   const [refresh, setRefresh] = useState(true);
   const [error, setError] = useState(false);
