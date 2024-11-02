@@ -1,31 +1,74 @@
 # Frontend Insight - React.JS - Vite
 
+Este documento describe la estructura y librerías empleadas en el proyecto frontend utilizando React.JS y Vite. 
+
 ## Estructura
-Siguiendo el framework REACT.JS VITE, esta basado en el grupo de librerías de [Tanstack](https://tanstack.com/), donde la idea es implementarla en su totalidad pero se lo va haciendo en la medida posible.
-NOTA: TanStack es una librería TypeScript pero se usará JS.
 
-Librerías Principales:
+La organización del proyecto sigue el modelo estructural descrito en el archivo adjunto **"Modelo Front.md"**. Este modelo proporciona una separación modular y funcional de las distintas partes de la aplicación, incluyendo assets, componentes, layouts, módulos, y utilidades.
 
-* **Router -- [TanStack Router](https://tanstack.com/router/latest/docs/framework/react/overview)**: Gracias a la extensión Vite de esta librería, el enrutado se hace dinámicamente por archivo partiendo desde la carpeta **src/routes**. Esto quiere decir que cualquier archivo ubicado en esta carpeta crea automáticamente una ruta en la app.
-  * Adicionalmente al enrutado la librería tiene un manejo de Layouts, carga y precarga de datos, capturadores de parametros propios, herramientas de navegación y de manejo de errores.
-* **Formularios -- [Tanstack Form](https://tanstack.com/form/latest/docs/overview)**: es la librería que gestiona los formularios
-* **Validación -- [Zod](https://zod.dev/)**: gestiona las validaciones y posee adaptadores que trabajan con TanStack Router y TanStack Form
-* **Cache -- [TanStack Query](https://tanstack.com/query/latest)**: es un manejador de memoria cache, su uso no esta bien realizado pero se piensa implementarla correctamente.
-* **Estados Globales -- [Zustan](https://zustand-demo.pmnd.rs/)**: manejador de estados globales
-* **Peticiones -- [Axios](https://axios-http.com/es/docs/intro)**
+### Descripción de Módulos
 
-Librerías Secundarias:
+Cada módulo agrupa la lógica de negocio y presenta una estructura autónoma que contiene componentes y servicios propios, facilitando así la modularidad y escalabilidad del proyecto. Estos módulos permiten un mantenimiento más sencillo y mejoran la reutilización del código en el proyecto.
 
-* **Manejador de Fechas -- [Day.js](https://day.js.org/)**
-* **Popups --[Sweet Alert2](https://sweetalert2.github.io/)**
-* **Iconos -- [Iconify](https://iconify.design/docs/)**
-* **Iconos -- [React-Icons](https://react-icons.github.io/react-icons/)**
-* **Visualizador de Código -- [Syntax-Highlighter](https://www.npmjs.com/package/react-syntax-highlighter)**
+## Librerías
 
-NOTA: Tanstack tiene gran parte de la documentación en ingles y hay muy poca información en español
+Este proyecto está basado en **React.JS** y **Vite**, aprovechando el conjunto de librerías de **[TanStack](https://tanstack.com/)**, que se va integrando progresivamente. Aunque TanStack está escrito en TypeScript, en este proyecto se implementará en JavaScript.
+
+### Librerías Principales
+
+1. **Enrutador - [TanStack Router](https://tanstack.com/router/latest/docs/framework/react/overview)**
+   - **Enrutado dinámico por archivo:** Las rutas se crean automáticamente desde la carpeta `src/routes`, donde cada archivo genera una ruta en la aplicación.
+   - **Rutas y Layouts específicos:**
+     - **_root:** La ruta base que contiene toda la aplicación.
+     - **_public** / **_private:** Layouts específicos.
+       - Las rutas que empiezan con "_" funcionan como layouts y no generan rutas individuales.
+       - Las carpetas con el mismo nombre se comportan como contenedores de ruta.
+   - **Funciones del hook de enrutamiento:**
+     - **Estados previos:** usados para precargar datos o validar parámetros antes de renderizar un componente.
+       - **beforeLoad (función):** Se ejecuta antes del loader y permite precargar datos.
+       - **loader (función):** Ejecuta la lógica antes de renderizar el componente.
+     - **component (función):** El componente que se renderizará en la ruta.
+   - **Herramientas adicionales:** Incluye capturadores de parámetros, navegación y gestión de errores.
+
+2. **Formularios - [TanStack Form](https://tanstack.com/form/latest/docs/overview)**
+   - Se utiliza para gestionar los formularios y sus estados en toda la aplicación, con implementaciones específicas para:
+     - **Auth:** Formularios de login y registro.
+     - **ActionModal:** Componente modal con acciones específicas.
+
+3. **Validación - [Zod](https://zod.dev/)**
+   - Librería de validación con adaptadores que funcionan bien junto a TanStack Router y TanStack Form.
+
+4. **Cache - [TanStack Query](https://tanstack.com/query/latest)**
+   - Manejador de cache que aún se encuentra en proceso de implementación completa.
+
+5. **Estados Globales - [Zustand](https://zustand-demo.pmnd.rs/)**
+   - Gestor de estados globales para simplificar el manejo del estado en toda la aplicación.
+
+6. **Peticiones - [Axios](https://axios-http.com/es/docs/intro)**
+   - Manejador de solicitudes HTTP con configuraciones personalizadas.
+
+7. **Estilos - [TailwindCSS](https://tailwindcss.com/)**
+   - Utilizado como framework principal de CSS, permite la creación de interfaces personalizables de forma rápida y eficiente mediante clases utilitarias. TailwindCSS se integra con React y proporciona estilos consistentes y configurables en todos los componentes.
+
+### Librerías Secundarias
+
+- **Manejador de Fechas - [Day.js](https://day.js.org/):** Para el manejo y formateo de fechas.
+- **Popups - [Sweet Alert2](https://sweetalert2.github.io/):** Librería para generar ventanas emergentes personalizadas.
+- **Iconos - [Iconify](https://iconify.design/docs/):** Librería de iconos.
+- **Iconos - [React-Icons](https://react-icons.github.io/react-icons/):** Librería adicional de iconos.
+- **Visualizador de Código - [Syntax-Highlighter](https://www.npmjs.com/package/react-syntax-highlighter):** Para mostrar código formateado en la aplicación.
+
+> **NOTA:** Gran parte de la documentación de TanStack está en inglés, y la información en español es limitada.
 
 ## Explicación de cada parte:
 
-## Estructura
+### Módulos
 
-* Módulos:
+Los módulos están diseñados para encapsular lógica y componentes específicos, garantizando una estructura autónoma que facilite la escalabilidad y el mantenimiento. Por ejemplo:
+- **Auth:** Módulo que contiene toda la lógica relacionada con autenticación.
+- **User Profile:** Módulo con la lógica y los componentes necesarios para la gestión del perfil del usuario.
+- **Contributions:** Módulo con la lógica y los componentes necesarios para la gestión de las contribuciones de los usuarios al grupo.
+- **Projects:** Módulo con la lógica y los componentes necesarios para la gestión de los proyectos actuales del grupo.
+- **Experiences:** Módulo con la lógica y los componentes necesarios para la gestión de las experiencias de los usuarios.
+
+Esta estructura asegura que cada módulo sea reutilizable y, al mismo tiempo, específico en su función dentro de la aplicación.
