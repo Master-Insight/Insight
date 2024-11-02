@@ -12,10 +12,12 @@ import { zodSearchValidator } from '@tanstack/router-zod-adapter'
 import { alertBasic } from '../../modules/alerts/alerts';
 import { getShortAssociates } from '../../apis/users.services';
 
+// Validador de params query
 const titleSearchSchema = z.object({
   title: z.string().optional(),
 })
-// https://tanstack.com/router/latest/docs/framework/react/guide/search-params
+
+// Ruta de Tanstack Rute
 export const Route = createFileRoute('/_private/contributions')({
   loader: async () => {
     return getContributions()
@@ -24,10 +26,9 @@ export const Route = createFileRoute('/_private/contributions')({
   component: ContributionsPage,
 })
 
+// Funcion que define el componente
 function ContributionsPage () {
   const { title } = Route.useSearch()
-  console.log(title);
-  
 
   const [isLoading, setIsLoading] = useState(true);
   const [refresh, setRefresh] = useState(true);
@@ -41,7 +42,7 @@ function ContributionsPage () {
   const [filterusers, setFilterUsers] = useState({});
   const { currentUser } = useAppStore();
 
-  console.log(filterusers);
+  // console.log(filterusers);
   
   const [isFilterLoading, setIsFilterLoading] = useState(false);
   
@@ -62,6 +63,7 @@ function ContributionsPage () {
   }, [refresh]);
 
   // Cargar lenguajes y profesiones
+  // http://localhost:5173/contributions?title=ActionModal%20-%20TanstackForm
   useEffect(() => {
     const fetchFilters = async () => {
       setIsFilterLoading(true);
@@ -92,6 +94,7 @@ function ContributionsPage () {
       { key: "languages", label: "Lenguaje", type: "select", options: languages },
       { key: "frameworks", label: "FrameWorks", type: "select", options: frameworks },
     ],
+    activeFilter: { title },
     fields: [
       { name: "title",
         label: "Titulo",

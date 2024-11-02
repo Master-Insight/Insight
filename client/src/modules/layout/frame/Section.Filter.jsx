@@ -15,7 +15,7 @@ const SectionWFilters = ({
   }) => {
 
   const [filteredData, setFilteredData] = useState(data);
-  const [activeFilters, setActiveFilters] = useState({});
+  const [activeFilters, setActiveFilters] = useState(config.activeFilter || {});
 
   //console.log("data: ",filteredData);
   // console.log("activeFilters: ",activeFilters);
@@ -54,6 +54,11 @@ const SectionWFilters = ({
     applyFilters();
   }, [activeFilters, data]);
 
+  // Handler Reset Filter
+  const handleResetFilter = () => {
+    setActiveFilters({});
+  };
+
   return (
     <>
       <div className="flex justify-between">
@@ -70,6 +75,10 @@ const SectionWFilters = ({
         {/* Sección de filtros */}
         <div className="w-1/4 p-4 border-r border-gray-200">
           <FilterSection filters={config.filters} onFilterChange={handleFilterChange} isPending={isFilterPending}/>
+          <button onClick={handleResetFilter}
+            className="px-4 py-2 bg-blue-500 text-white rounded-md flex items-center hover:bg-blue-600 transition-all">
+            Limpiar Filtro <BiSolidPlusSquare className="ml-2" />
+          </button>
         </div>
 
         {/* Sección de elementos */}
