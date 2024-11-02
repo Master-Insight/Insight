@@ -1,5 +1,5 @@
 // * Store de Usuarios
-import axiosInstance from "../config/axiosInstance";
+import axiosInstance from '../services/axiosInstance';
 import { jwtDecode  } from 'jwt-decode';
 
 const createUserSlice = (set, get) => ({

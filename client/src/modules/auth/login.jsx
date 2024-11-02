@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 import { useNavigate } from '@tanstack/react-router';
 import useAuthApi from './hooks/useAuthApi';
-import Frame from '../layout/frame/Frame';
+import Frame from '../../ui/boxes/Frame';
 
 // Definición del esquema de validación usando Zod
 const loginSchema = z.object({

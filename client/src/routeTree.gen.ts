@@ -15,6 +15,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as PublicImport } from './routes/_public'
 import { Route as PrivateImport } from './routes/_private'
+import { Route as AuthImport } from './routes/_auth'
 import { Route as PublicRegisterImport } from './routes/_public/register'
 import { Route as PublicLoginImport } from './routes/_public/login'
 import { Route as PublicUsernameImport } from './routes/_public/$username'
@@ -37,6 +38,11 @@ const PublicRoute = PublicImport.update({
 
 const PrivateRoute = PrivateImport.update({
   id: '/_private',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthRoute = AuthImport.update({
+  id: '/_auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -91,6 +97,13 @@ const PrivateContributionsRoute = PrivateContributionsImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
     '/_private': {
       id: '/_private'
       path: ''
@@ -197,9 +210,13 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.jsx",
       "children": [
+        "/_auth",
         "/_private",
         "/_public"
       ]
+    },
+    "/_auth": {
+      "filePath": "_auth.jsx"
     },
     "/_private": {
       "filePath": "_private.jsx",

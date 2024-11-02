@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo } from 'react'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { routeTree } from './routeTree.gen'
-import './index.css'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
-import { Spinner } from './modules/layout/frame/Spinner'
 import { useAppStore } from './store/useAppStore'
+import { Spinner } from './ui/loading/Spinner'
+import './styles/index.css'
 
 export const queryClient = new QueryClient()
 

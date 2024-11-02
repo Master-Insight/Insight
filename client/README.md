@@ -1,6 +1,6 @@
 # Frontend Insight - React.JS - Vite
 
-Este documento describe la estructura y librerías empleadas en el proyecto frontend utilizando React.JS y Vite. 
+Este documento describe la estructura y librerías empleadas en el proyecto frontend utilizando React.JS y Vite.
 
 ## Estructura
 
@@ -60,11 +60,12 @@ Este proyecto está basado en **React.JS** y **Vite**, aprovechando el conjunto 
 
 > **NOTA:** Gran parte de la documentación de TanStack está en inglés, y la información en español es limitada.
 
-## Explicación de cada parte:
+## Explicación de cada parte
 
 ### Módulos
 
 Los módulos están diseñados para encapsular lógica y componentes específicos, garantizando una estructura autónoma que facilite la escalabilidad y el mantenimiento. Por ejemplo:
+
 - **Auth:** Módulo que contiene toda la lógica relacionada con autenticación.
 - **User Profile:** Módulo con la lógica y los componentes necesarios para la gestión del perfil del usuario.
 - **Contributions:** Módulo con la lógica y los componentes necesarios para la gestión de las contribuciones de los usuarios al grupo.

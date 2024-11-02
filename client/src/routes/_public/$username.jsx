@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { associateLoader } from '../../apis/users.services';
+import { associateLoader } from '../../services/api/users.services';
 import { useEffect, useState } from 'react';
-import Frame from '../../modules/layout/frame/Frame';
 import PageUser from '../../modules/user/PageUser';
+import Frame from '../../ui/boxes/Frame'
 
 export const Route = createFileRoute('/_public/$username')({
   loader: async ({ params }) => {

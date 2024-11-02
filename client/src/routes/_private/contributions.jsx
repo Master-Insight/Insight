@@ -1,16 +1,16 @@
 import { createFileRoute, useRouter } from '@tanstack/react-router'
-import { getContributions, postContributions, updateContribution, deleteContribution  } from '../../apis/contributions.services';
-import { getLanguajes, getProfessions, getFrameworks, getAppLinks } from '../../apis/values.services';
 import { useEffect, useState } from 'react';
-import Frame from '../../modules/layout/frame/Frame';
-import SectionWFilters from '../../modules/layout/frame/Section.Filter';
-import Card from '../../modules/contributions/Card';
-import { useAppStore } from '../../store/useAppStore';
 import { BiBookmark, BiClipboard, BiCodeBlock, BiCode, BiBriefcase } from 'react-icons/bi';
+import { useAppStore } from '../../store/useAppStore';
 import { z } from 'zod';
 import { zodSearchValidator } from '@tanstack/router-zod-adapter'
-import { alertBasic } from '../../modules/alerts/alerts';
-import { getShortAssociates } from '../../apis/users.services';
+import Card from '../../modules/contributions/Card';
+import { getContributions } from '../../services/api/contributions.services';
+import { getShortAssociates } from '../../services/api/users.services';
+import { getLanguajes } from '../../services/api/values.services';
+import Frame from '../../ui/boxes/Frame';
+import { alertBasic } from '../../ui/popups/alerts';
+import SectionWFilters from '../../ui/sections/Section.Filter';
 
 // Validador de params query
 const titleSearchSchema = z.object({

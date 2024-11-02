@@ -1,6 +1,6 @@
 import React from 'react'
-import Icon from '../../icons/iconifyIcon'
 import {Link} from '@tanstack/react-router'
+import Icon from '../../../ui/icons/iconifyIcon'
 
 const ContributionsCard = ({item}) => {
   const language = item.languages[0]

@@ -1,7 +1,7 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import { useGetAssociates } from '../../apis/users.services'
-import Frame from '../../modules/layout/frame/Frame'
 import AssociateCard from '../../modules/user/AssociateCard'
+import Frame from '../../ui/boxes/Frame'
 
 export const Route = createLazyFileRoute('/_public/members')({
   component: membersPage

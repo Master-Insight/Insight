@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { getUserContributions } from '../../../apis/contributions.services';
-import Section from '../../layout/frame/Section';
+import { getUserContributions } from '../../../services/api/contributions.services';
+import Section from '../../../ui/sections/Section';
 import ContributionsCard from './ContributionsCard';
 
 const Contributions = ({user}) => {

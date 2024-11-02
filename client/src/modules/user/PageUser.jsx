@@ -1,15 +1,15 @@
 import React from 'react'
 import { BiEditAlt } from 'react-icons/bi'
 import { useAppStore } from '../../store/useAppStore';
-import { updateCurrentUser, userUpdatePhoto } from '../../apis/users.services'
+import { updateCurrentUser, userUpdatePhoto } from '../../services/api/users.services';
 import UserData from './PageUser/UserData';
 import Header from './PageUser/Header';
-import Section from '../layout/frame/Section';
 import Proyects from './PageUser/Proyects';
 import Experience from './PageUser/Experience';
 import UserBio from './PageUser/UserBio';
 import ButtonsList from './PageUser/ButtonsList';
 import Contributions from './PageUser/Contributions';
+import Section from '../../ui/sections/Section';
 
 const PageUser = ({user}) => {
   const { currentUserName } = useAppStore()

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { BiCopy, BiSolidPlusSquare } from 'react-icons/bi';
-import { alertMessage } from '../alerts/alerts';
-import ActionModal from '../layout/frame/ActionModal'
-import Icon from '../icons/iconifyIcon';
+import { alertMessage } from '../../ui/popups/alerts';
+import Icon from '../../ui/icons/iconifyIcon';
+import ActionModal from '../../ui/modal/ActionModal'
 
 const Card = ({ item, config }) => {
   const [showCode, setShowCode] = useState(false);

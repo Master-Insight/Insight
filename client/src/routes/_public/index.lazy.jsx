@@ -1,5 +1,5 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
-import Frame from '../../modules/layout/frame/Frame';
+import Frame from '../../ui/boxes/Frame'
 
 export const Route = createLazyFileRoute('/_public/')({
   component: Home,
