@@ -7,7 +7,7 @@ export const Route = createFileRoute('/_public')({
   component: publicLayout,
   beforeLoad: async ({context}) => {
     const {isAuthenticated} = context;
-    console.log("Auth status:", isAuthenticated);
+    // console.log("Auth status:", isAuthenticated);
   }
 })
 

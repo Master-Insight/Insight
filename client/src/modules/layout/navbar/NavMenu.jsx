@@ -2,14 +2,14 @@ import { Link } from "@tanstack/react-router";
 
 const publicNavItems = [
   { name: 'Home', path: '/' },
+  { name: 'Insighter', path: '/members' },
   { name: 'Login', path: '/login' },
-  { name: 'Register', path: '/register' },
-  { name: 'Private', path: '/private' },
 ];
 
 const privateNavItems = [
   { name: 'Private', path: '/private' },
   { name: 'Profile', path: '/profile' },
+  { name: 'Contributions', path: '/contributions' },
   { name: 'Logout', path: '/logout' },
   { name: 'HomePublic', path: '/' },
 ];

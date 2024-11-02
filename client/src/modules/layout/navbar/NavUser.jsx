@@ -4,7 +4,7 @@ import { crearURLCompleta } from "../../others/urifoto";
 export default function NavUser() {
   const { currentUser } = useAppStore();
   if (!currentUser) { return null; }
-  console.log("currentUser: ",currentUser);
+  // console.log("currentUser: ",currentUser);
   let initials = currentUser?.given_name?.charAt(0) + currentUser?.family_name?.charAt(0)
 
   return (

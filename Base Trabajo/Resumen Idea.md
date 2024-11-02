@@ -10,13 +10,15 @@ Este proyecto surge de la necesidad de querer trabajar en el área IT, pero al n
 
 1 . Crear una pagina para mostrar trabajos. PortFolios (ya que es la primera necesidad y cumplirá un rol importante en el resto)
 
-2 . Crear espacio de proyectos Colaboraticos
+2 . Crear un grupo de comunicación
+ 
+3 . Crear espacio de proyectos Colaboraticos
 
-3 . Gestionar los recursos compartidos
+4 . Gestionar los recursos compartidos
 
 * Recursos IT varios
 * Herramientas (codigo, costos, presupuestos, etc)
 
-4 . Promoveer los productos desarrollados por la asociación
+5 . Promoveer los productos desarrollados por la asociación
 
 * Se espera crear una base de empresa con una gran relacion a la asociación pero independiente de la misma donde los asociados tendran el privilegio de participar libremente

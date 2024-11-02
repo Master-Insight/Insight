@@ -18,12 +18,15 @@ import { Route as PrivateImport } from './routes/_private'
 import { Route as PublicRegisterImport } from './routes/_public/register'
 import { Route as PublicLoginImport } from './routes/_public/login'
 import { Route as PublicUsernameImport } from './routes/_public/$username'
+import { Route as PrivateProfileImport } from './routes/_private/profile'
 import { Route as PrivatePrivateImport } from './routes/_private/private'
 import { Route as PrivateLogoutImport } from './routes/_private/logout'
+import { Route as PrivateContributionsImport } from './routes/_private/contributions'
 
 // Create Virtual Routes
 
 const PublicIndexLazyImport = createFileRoute('/_public/')()
+const PublicMembersLazyImport = createFileRoute('/_public/members')()
 
 // Create/Update Routes
 
@@ -42,6 +45,13 @@ const PublicIndexLazyRoute = PublicIndexLazyImport.update({
   getParentRoute: () => PublicRoute,
 } as any).lazy(() => import('./routes/_public/index.lazy').then((d) => d.Route))
 
+const PublicMembersLazyRoute = PublicMembersLazyImport.update({
+  path: '/members',
+  getParentRoute: () => PublicRoute,
+} as any).lazy(() =>
+  import('./routes/_public/members.lazy').then((d) => d.Route),
+)
+
 const PublicRegisterRoute = PublicRegisterImport.update({
   path: '/register',
   getParentRoute: () => PublicRoute,
@@ -57,6 +67,11 @@ const PublicUsernameRoute = PublicUsernameImport.update({
   getParentRoute: () => PublicRoute,
 } as any)
 
+const PrivateProfileRoute = PrivateProfileImport.update({
+  path: '/profile',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
 const PrivatePrivateRoute = PrivatePrivateImport.update({
   path: '/private',
   getParentRoute: () => PrivateRoute,
@@ -64,6 +79,11 @@ const PrivatePrivateRoute = PrivatePrivateImport.update({
 
 const PrivateLogoutRoute = PrivateLogoutImport.update({
   path: '/logout',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateContributionsRoute = PrivateContributionsImport.update({
+  path: '/contributions',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -85,6 +105,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicImport
       parentRoute: typeof rootRoute
     }
+    '/_private/contributions': {
+      id: '/_private/contributions'
+      path: '/contributions'
+      fullPath: '/contributions'
+      preLoaderRoute: typeof PrivateContributionsImport
+      parentRoute: typeof PrivateImport
+    }
     '/_private/logout': {
       id: '/_private/logout'
       path: '/logout'
@@ -97,6 +124,13 @@ declare module '@tanstack/react-router' {
       path: '/private'
       fullPath: '/private'
       preLoaderRoute: typeof PrivatePrivateImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/profile': {
+      id: '/_private/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof PrivateProfileImport
       parentRoute: typeof PrivateImport
     }
     '/_public/$username': {
@@ -120,6 +154,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicRegisterImport
       parentRoute: typeof PublicImport
     }
+    '/_public/members': {
+      id: '/_public/members'
+      path: '/members'
+      fullPath: '/members'
+      preLoaderRoute: typeof PublicMembersLazyImport
+      parentRoute: typeof PublicImport
+    }
     '/_public/': {
       id: '/_public/'
       path: '/'
@@ -134,13 +175,16 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   PrivateRoute: PrivateRoute.addChildren({
+    PrivateContributionsRoute,
     PrivateLogoutRoute,
     PrivatePrivateRoute,
+    PrivateProfileRoute,
   }),
   PublicRoute: PublicRoute.addChildren({
     PublicUsernameRoute,
     PublicLoginRoute,
     PublicRegisterRoute,
+    PublicMembersLazyRoute,
     PublicIndexLazyRoute,
   }),
 })
@@ -160,8 +204,10 @@ export const routeTree = rootRoute.addChildren({
     "/_private": {
       "filePath": "_private.jsx",
       "children": [
+        "/_private/contributions",
         "/_private/logout",
-        "/_private/private"
+        "/_private/private",
+        "/_private/profile"
       ]
     },
     "/_public": {
@@ -170,8 +216,13 @@ export const routeTree = rootRoute.addChildren({
         "/_public/$username",
         "/_public/login",
         "/_public/register",
+        "/_public/members",
         "/_public/"
       ]
+    },
+    "/_private/contributions": {
+      "filePath": "_private/contributions.jsx",
+      "parent": "/_private"
     },
     "/_private/logout": {
       "filePath": "_private/logout.jsx",
@@ -179,6 +230,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_private/private": {
       "filePath": "_private/private.jsx",
+      "parent": "/_private"
+    },
+    "/_private/profile": {
+      "filePath": "_private/profile.jsx",
       "parent": "/_private"
     },
     "/_public/$username": {
@@ -191,6 +246,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_public/register": {
       "filePath": "_public/register.jsx",
+      "parent": "/_public"
+    },
+    "/_public/members": {
+      "filePath": "_public/members.lazy.jsx",
       "parent": "/_public"
     },
     "/_public/": {

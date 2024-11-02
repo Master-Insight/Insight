@@ -1,5 +1,15 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_private/private')({
-  component: () => <div>Hello /_private/private!</div>
+  beforeLoad: async () => {
+    // Redirige a la página de login si no está autenticado
+    throw redirect({ to: '/profile', });
+  },
+  component: PrivateHome
 })
+
+function PrivateHome () {
+  return (<>
+    <div>Hello /_private/private!</div>
+  </>)
+}
