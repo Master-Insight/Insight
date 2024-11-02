@@ -73,3 +73,51 @@ Los módulos están diseñados para encapsular lógica y componentes específico
 - **Experiences:** Módulo con la lógica y los componentes necesarios para la gestión de las experiencias de los usuarios.
 
 Esta estructura asegura que cada módulo sea reutilizable y, al mismo tiempo, específico en su función dentro de la aplicación.
+
+### Componentes UI
+
+**Boxes**: Cajas
+
+- **Frame.jsx**
+  - `<Frame redirect="" css="">`: es una caja con sombra donde deberia ir todas las paginas con contenido
+    - *redirect*: hacia donde dirige el backbutton
+    - *css*: permite indicar el tamaño
+
+**Buttons**:
+- **BackButtons.jsx**
+  - `<BackButtons to="">`
+
+**Icons**:
+
+- **iconifyIcon.jsx**
+  - `<Icon name="" category="" display=false>`: muestra un icono según nombre y categoría (se define según el mapa)
+  - `<Icon customIcon="">`: se puede pasar dirección de [iconify](https://icon-sets.iconify.design/) directamente
+    - Ejemplo: `<Icon name={language} category="languages"/>`
+    - Ejemplo: `<Icon customIcon="logos:pip"/>`
+    - *Display*: muestra o no el nombre
+
+**Modal**: ventanas modales
+
+- **Modal.jsx**: muestra una ventana modal predefinida
+  - `const { isOpen, openModal, closeModal } = useModal();`
+  - `<Modal isOpen={isOpen} onClose={closeModal} title="">...</Modal>`
+- **ActionModal.jsx**: es un botón que al cliquear abre una ventana modal con un form ("fields") para enviar datos ejecutando la "functionApi"
+  - `<ActionModal title="" fields={obj} functionApi={func} defaultValues={obj} />`
+
+**Popups**: mensajes popups (sweetalert2)
+
+- **alerts.jsx**: 
+  - `function alertBasic(title, text, icon)`
+  - `function alertMessage(title, icon="", time=3)`
+  - `function alertAreYouSure(action)`
+
+**Sections**: secciones especiales con funciones prefedinidas
+
+- **Section.jsx**: es una caja donde va contenido
+  - `<Section title='opc' css='opc'>...</Section>`
+    - *css*: permite indicar el tamaño
+- **Section.Form.jsx**: Renderiza una sección que muestra datos dinámicos y permite editarlos a través de un modal si es necesario. 
+  - `<SectionWForm title='opc' css='opc' data={obj} setData={func} fields=[array] isEditable=false isPublic=true />`
+  - Revisar uso completo en el archivo. Usa `<ActionModal>`
+- **Section.Filter.jsx**: Renderiza una sección que mapea una "Card" y permite filtrar sus elementos
+  - `<SectionWFilters title='opc' data={obj} config={obj} isFilterPending=bool isElementPending=bool />`

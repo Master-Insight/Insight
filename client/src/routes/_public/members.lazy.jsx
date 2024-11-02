@@ -1,5 +1,5 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
-import { useGetAssociates } from '../../apis/users.services'
+import { useGetAssociates } from '../../services/api/users.services'
 import AssociateCard from '../../modules/user/AssociateCard'
 import Frame from '../../ui/boxes/Frame'
 
