@@ -10,7 +10,7 @@ Este proyecto surge de la necesidad de querer trabajar en el área IT, pero al n
 
 1 . Crear una pagina para mostrar trabajos. PortFolios (ya que es la primera necesidad y cumplirá un rol importante en el resto)
 
-2. Crear un grupo de comunicación
+2 . Crear un grupo de comunicación
  
 3 . Crear espacio de proyectos Colaboraticos
 
