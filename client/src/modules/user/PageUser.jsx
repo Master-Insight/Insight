@@ -8,15 +8,14 @@ import Section from '../layout/frame/Section';
 import Proyects from './PageUser/Proyects';
 import Experience from './PageUser/Experience';
 import UserBio from './PageUser/UserBio';
-import CVButton from './PageUser/CVButton';
 import ButtonsList from './PageUser/ButtonsList';
+import Contributions from './PageUser/Contributions';
 
 const PageUser = ({user}) => {
   const { currentUserName } = useAppStore()
   const itsMyProfile = user.username === currentUserName
-
+  
   console.log("user: ",user);
-  // console.log("itsMyProfile: ", itsMyProfile);
 
   function handleAction(data) {
     updateCurrentUser(data)
@@ -38,6 +37,10 @@ const PageUser = ({user}) => {
       {/* Sección con información del usuario */}
       <UserData user={user} itsMyProfile={itsMyProfile} action={handleAction} />
       <UserBio user={user} itsMyProfile={itsMyProfile} action={handleAction} />
+
+      { currentUserName &&
+        <Contributions user={user} itsMyProfile={itsMyProfile} action={handleAction} />}
+      
 
       <Proyects/>
       <Experience/>

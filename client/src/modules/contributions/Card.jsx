@@ -25,8 +25,8 @@ const Card = ({ item, config }) => {
       {/* Area Header */}
       <div className="mb-4">
         <div className="mb-4 flex items-center">
-          <Icon name={language} category="languages" className="mr-2" />
-          <Icon name={framework} category="frameworks" className="mr-2" />
+          {language && <Icon name={language} category="languages" className="mr-2" />}
+          {framework && <Icon name={framework} category="frameworks" className="mr-2" />}
           <h2 className="text-xl font-semibold mb-2">{item.title}</h2>
         </div>
         <p className="text-sm font-bold text-gray-500">Autor: {item.contributedBy.full_name}</p>
@@ -36,15 +36,15 @@ const Card = ({ item, config }) => {
       {/* Area de Botones Código */}
       <div className="flex space-x-4 mb-4">
         {/* Botón para ver/ocultar código */}
-        <button onClick={() => setShowCode(!showCode)} className="px-3 py-2 bg-blue-500 text-white rounded">
+        {item.code && <button onClick={() => setShowCode(!showCode)} className="px-3 py-2 bg-blue-500 text-white rounded">
           {showCode ? 'Ocultar código' : 'Ver código'}
-        </button>
+        </button>}
 
         {/* Botón para Copiar el código */}
-        <button onClick={handleCopy} className="px-3 py-2 bg-green-500 text-white rounded flex items-center space-x-2">
+        {item.code && <button onClick={handleCopy} className="px-3 py-2 bg-green-500 text-white rounded flex items-center space-x-2">
           <BiCopy />
           <span>Copiar código</span>
-        </button>
+        </button>}
 
         {/* Botón para ver/enlazar los links */}
         <button

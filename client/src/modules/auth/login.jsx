@@ -40,7 +40,6 @@ export default function Login() {
   const form = useForm({
     ...formOpts,
     onSubmit: async ({ value }) => {
-      console.log(value);
       const {email, password} = value
       await login({email, password}, navigate);
     },

@@ -1,5 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { getLanguajes, getProfessions, getFrameworks, getContributions, postContributions, updateContribution, deleteContribution, getAppLinks } from '../../apis/contributions.services';
+import { createFileRoute, useRouter } from '@tanstack/react-router'
+import { getContributions, postContributions, updateContribution, deleteContribution  } from '../../apis/contributions.services';
+import { getLanguajes, getProfessions, getFrameworks, getAppLinks } from '../../apis/values.services';
 import { useEffect, useState } from 'react';
 import Frame from '../../modules/layout/frame/Frame';
 import SectionWFilters from '../../modules/layout/frame/Section.Filter';
@@ -7,29 +8,43 @@ import Card from '../../modules/contributions/Card';
 import { useAppStore } from '../../store/useAppStore';
 import { BiBookmark, BiClipboard, BiCodeBlock, BiCode, BiBriefcase } from 'react-icons/bi';
 import { z } from 'zod';
+import { zodSearchValidator } from '@tanstack/router-zod-adapter'
 import { alertBasic } from '../../modules/alerts/alerts';
+import { getShortAssociates } from '../../apis/users.services';
 
+const titleSearchSchema = z.object({
+  title: z.string().optional(),
+})
+// https://tanstack.com/router/latest/docs/framework/react/guide/search-params
 export const Route = createFileRoute('/_private/contributions')({
   loader: async () => {
     return getContributions()
   },
+  validateSearch: zodSearchValidator(titleSearchSchema),
   component: ContributionsPage,
 })
 
 function ContributionsPage () {
+  const { title } = Route.useSearch()
+  console.log(title);
+  
+
   const [isLoading, setIsLoading] = useState(true);
   const [refresh, setRefresh] = useState(true);
   const [error, setError] = useState(false);
 
   const [contributions, setContributions] = useState(Route.useLoaderData());
-  const [languages, setLanguages] = useState();
-  const [professions, setProfessions] = useState();
-  const [frameworks, setFrameworks] = useState();
-  const [apps, setApps] = useState();
+  const [languages, setLanguages] = useState([]);
+  const [professions, setProfessions] = useState([]);
+  const [frameworks, setFrameworks] = useState([]);
+  const [apps, setApps] = useState([]);
+  const [filterusers, setFilterUsers] = useState({});
   const { currentUser } = useAppStore();
 
+  console.log(filterusers);
+  
   const [isFilterLoading, setIsFilterLoading] = useState(false);
-
+  
   useEffect(() => {
     const fetchContributions = async () => {
       setIsLoading(true);
@@ -51,11 +66,14 @@ function ContributionsPage () {
     const fetchFilters = async () => {
       setIsFilterLoading(true);
       try {
-        const [languagesResp, professionsResp, frameworksResp, appsResp] = await Promise.all([getLanguajes(), getProfessions(), getFrameworks(), getAppLinks()]);
+        const [languagesResp, professionsResp, frameworksResp, appsResp, usersResp] = await Promise.all([getLanguajes(), getProfessions(), getFrameworks(), getAppLinks(), getShortAssociates()]);
         setLanguages(languagesResp);
         setProfessions(professionsResp);
         setFrameworks(Object.values(frameworksResp).flat());
-        setApps(appsResp)
+        setApps(appsResp);
+        const orderUser = usersResp.sort((a, b) => a.full_name.localeCompare(b.full_name)).map(user => ({ value: user._id, label: user.full_name }))
+        setFilterUsers(orderUser)
+        
       } catch (err) {
         console.log(err);
         setError('Hubo un error al cargar los select');
@@ -68,6 +86,7 @@ function ContributionsPage () {
 
   const config = {
     filters: [
+      { key: "user", label: "Usuario", type: "select", object: "label", options: filterusers, function: (value)=>{return value+"a"} }, //filterusers options: ["a", "b"]
       { key: "title", label: "Título", type: "text" },
       { key: "professions", label: "Profesiones", type: "select", options: professions },
       { key: "languages", label: "Lenguaje", type: "select", options: languages },
@@ -125,14 +144,14 @@ function ContributionsPage () {
         type: "array",
         itemType: "select",
         enum: frameworks ,
-        default: [""], 
+        default: [], 
       },
       { name: "libraries", 
         label: "Librerias", 
         icon: BiBookmark, 
         type: "array",
         itemType: "text",
-        default: [""],
+        default: [],
       },
       { name: "links", 
         label: "Links", 
@@ -153,12 +172,14 @@ function ContributionsPage () {
           type: "text",
           validation: z.string().url("Debe ser una URL válida")
         }],
+        default: [],
       }
     ],
     card: Card,
     currentUserId: currentUser._id,
     actions: {
       postApi: async function (value) {
+        console.log(value);
         setIsLoading(true);
         try {
           await postContributions(value)

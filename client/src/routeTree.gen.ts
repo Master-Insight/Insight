@@ -26,6 +26,7 @@ import { Route as PrivateContributionsImport } from './routes/_private/contribut
 // Create Virtual Routes
 
 const PublicIndexLazyImport = createFileRoute('/_public/')()
+const PublicMembersLazyImport = createFileRoute('/_public/members')()
 
 // Create/Update Routes
 
@@ -43,6 +44,13 @@ const PublicIndexLazyRoute = PublicIndexLazyImport.update({
   path: '/',
   getParentRoute: () => PublicRoute,
 } as any).lazy(() => import('./routes/_public/index.lazy').then((d) => d.Route))
+
+const PublicMembersLazyRoute = PublicMembersLazyImport.update({
+  path: '/members',
+  getParentRoute: () => PublicRoute,
+} as any).lazy(() =>
+  import('./routes/_public/members.lazy').then((d) => d.Route),
+)
 
 const PublicRegisterRoute = PublicRegisterImport.update({
   path: '/register',
@@ -146,6 +154,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicRegisterImport
       parentRoute: typeof PublicImport
     }
+    '/_public/members': {
+      id: '/_public/members'
+      path: '/members'
+      fullPath: '/members'
+      preLoaderRoute: typeof PublicMembersLazyImport
+      parentRoute: typeof PublicImport
+    }
     '/_public/': {
       id: '/_public/'
       path: '/'
@@ -169,6 +184,7 @@ export const routeTree = rootRoute.addChildren({
     PublicUsernameRoute,
     PublicLoginRoute,
     PublicRegisterRoute,
+    PublicMembersLazyRoute,
     PublicIndexLazyRoute,
   }),
 })
@@ -200,6 +216,7 @@ export const routeTree = rootRoute.addChildren({
         "/_public/$username",
         "/_public/login",
         "/_public/register",
+        "/_public/members",
         "/_public/"
       ]
     },
@@ -229,6 +246,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_public/register": {
       "filePath": "_public/register.jsx",
+      "parent": "/_public"
+    },
+    "/_public/members": {
+      "filePath": "_public/members.lazy.jsx",
       "parent": "/_public"
     },
     "/_public/": {

@@ -16,7 +16,20 @@ const FilterSection = ({ filters, onFilterChange, isPending }) => {
               onChange={(e) => onFilterChange(filter.key, e.target.value)}
             />
           )}
-          {filter.type === "select" && (
+          {(filter.type === "select" && filter.object) && (
+            <select
+              className="w-full p-2 border border-gray-300 rounded"
+              onChange={(e) => onFilterChange(filter.key, e.target.value)}
+            >
+              <option value="">-- Selecciona --</option>
+              {filter.options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          )}
+          {(filter.type === "select" && !filter.object) && (
             <select
               className="w-full p-2 border border-gray-300 rounded"
               onChange={(e) => onFilterChange(filter.key, e.target.value)}

@@ -7,6 +7,19 @@ export const useGetAssociates = () => {
   return { data: associates, isPending, isError, error } 
 }
 
+export const getShortAssociates = async () => {
+  try {
+    const response = await axiosInstance.get(`/v1/users/associatesselective`);
+    const associates = response.data?.data || null;
+    return associates;
+  } catch (error) {
+    throw new Response('Error al cargar los datos', {
+      status: 500,
+      statusText: error.message,
+    });
+  }
+};
+
 export const associateLoader = async (username) => {
   try {
     const response = await axiosInstance.get(`/v1/users/associate/${username}`);

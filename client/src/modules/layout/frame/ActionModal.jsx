@@ -111,6 +111,7 @@ const DynamicField = ({ field, form, parentName }) => {
   return (
     <form.Field key={fieldName} name={fieldName}>
       {({ state, handleChange }) => {
+        //console.log({label, type, itemType, state})
         return (
         <div className="my-3">
           <label htmlFor={fieldName} className="block mb-2 text-gray-700">
