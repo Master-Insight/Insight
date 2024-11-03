@@ -23,6 +23,7 @@ import { Route as PrivateProfileImport } from './routes/_private/profile'
 import { Route as PrivatePrivateImport } from './routes/_private/private'
 import { Route as PrivateLogoutImport } from './routes/_private/logout'
 import { Route as PrivateContributionsImport } from './routes/_private/contributions'
+import { Route as AuthAuthLinkedinImport } from './routes/_auth/auth.linkedin'
 
 // Create Virtual Routes
 
@@ -91,6 +92,11 @@ const PrivateLogoutRoute = PrivateLogoutImport.update({
 const PrivateContributionsRoute = PrivateContributionsImport.update({
   path: '/contributions',
   getParentRoute: () => PrivateRoute,
+} as any)
+
+const AuthAuthLinkedinRoute = AuthAuthLinkedinImport.update({
+  path: '/auth/linkedin',
+  getParentRoute: () => AuthRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -181,12 +187,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexLazyImport
       parentRoute: typeof PublicImport
     }
+    '/_auth/auth/linkedin': {
+      id: '/_auth/auth/linkedin'
+      path: '/auth/linkedin'
+      fullPath: '/auth/linkedin'
+      preLoaderRoute: typeof AuthAuthLinkedinImport
+      parentRoute: typeof AuthImport
+    }
   }
 }
 
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
+  AuthRoute: AuthRoute.addChildren({ AuthAuthLinkedinRoute }),
   PrivateRoute: PrivateRoute.addChildren({
     PrivateContributionsRoute,
     PrivateLogoutRoute,
@@ -216,7 +230,10 @@ export const routeTree = rootRoute.addChildren({
       ]
     },
     "/_auth": {
-      "filePath": "_auth.jsx"
+      "filePath": "_auth.jsx",
+      "children": [
+        "/_auth/auth/linkedin"
+      ]
     },
     "/_private": {
       "filePath": "_private.jsx",
@@ -272,6 +289,10 @@ export const routeTree = rootRoute.addChildren({
     "/_public/": {
       "filePath": "_public/index.lazy.jsx",
       "parent": "/_public"
+    },
+    "/_auth/auth/linkedin": {
+      "filePath": "_auth/auth.linkedin.jsx",
+      "parent": "/_auth"
     }
   }
 }
