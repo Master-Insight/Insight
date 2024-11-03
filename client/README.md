@@ -25,8 +25,9 @@ Este proyecto está basado en **React.JS** y **Vite**, aprovechando el conjunto 
        - Las carpetas con el mismo nombre se comportan como contenedores de ruta.
    - **Funciones del hook de enrutamiento:**
      - **Estados previos:** usados para precargar datos o validar parámetros antes de renderizar un componente.
-       - **beforeLoad (función):** Se ejecuta antes del loader y permite precargar datos.
-       - **loader (función):** Ejecuta la lógica antes de renderizar el componente.
+       - **beforeLoad (función sync):** Se ejecuta antes del loader y permite precargar datos.
+       - **loader (función async):** Ejecuta la lógica antes de renderizar el componente.
+       - **onError (tras las otras)**
      - **component (función):** El componente que se renderizará en la ruta.
    - **Herramientas adicionales:** Incluye capturadores de parámetros, navegación y gestión de errores.
 
