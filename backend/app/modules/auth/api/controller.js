@@ -2,6 +2,7 @@ import AppError from "../../../../app/pkg/errors/AppError.js";
 import CustomController from "../../../pkg/customs/controller/controller.js";
 import { Authorization, Redirect } from "../config/authLinkedIn.js";
 import Service from "../logic/service.js";
+import configEnv from "../../../pkg/services/env/env.js";
 
 export default class Controller extends CustomController {
   constructor() {
@@ -60,7 +61,10 @@ export default class Controller extends CustomController {
         throw new AppError("LinkedIn authorization Error", 401);
       }
       const { token } = await this.service.registerOrLogin(profile, "Linkedin")
-      res.sendCreated({token}, "Auth success")
+      // TODO debe redirigir al front
+      // res.sendCreated({token}, "Auth success")
+      // Redirecciona al frontend con el token en la URL
+      res.redirect(`${configEnv.cors_origin}/auth/linkedin?token=${token}`);
     } catch(error) {
       next(error)
     }

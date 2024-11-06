@@ -1,11 +1,14 @@
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
-import Error404 from '../modules/layout/error/Error404'
 import { useAppStore } from '../store/useAppStore';
 import { useEffect } from 'react';
-import ErrorComponent from '../modules/layout/error/ErrorComponent';
+import Error404 from '../layouts/Error404';
+import ErrorComponent from '../ui/error/ErrorComponent';
 
 export const Route = createRootRouteWithContext()({
   component: PageRoot,
+  // beforeLoad: async ({ context }) => {
+  //   console.log(context) // esto lo agregue nuevo para rastrear el error
+  // },  
   notFoundComponent: Error404,
   errorComponent: ({ error, reset }) => {
     return <ErrorComponent error={error} />
@@ -13,7 +16,5 @@ export const Route = createRootRouteWithContext()({
 })
 
 function PageRoot () {
-  const { isAuthenticated, getUser } = useAppStore()
-  useEffect(()=>{ isAuthenticated && getUser() }, [])
   return ( <Outlet /> )
 }

@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useAppStore } from '../../store/useAppStore';
 import { useEffect, useState } from 'react';
-import Frame from '../../modules/layout/frame/Frame';
+import Frame from '../../ui/boxes/Frame';
 import PageUser from '../../modules/user/PageUser';
 
 export const Route = createFileRoute('/_private/profile')({

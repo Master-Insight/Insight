@@ -15,6 +15,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as PublicImport } from './routes/_public'
 import { Route as PrivateImport } from './routes/_private'
+import { Route as AuthImport } from './routes/_auth'
 import { Route as PublicRegisterImport } from './routes/_public/register'
 import { Route as PublicLoginImport } from './routes/_public/login'
 import { Route as PublicUsernameImport } from './routes/_public/$username'
@@ -22,6 +23,7 @@ import { Route as PrivateProfileImport } from './routes/_private/profile'
 import { Route as PrivatePrivateImport } from './routes/_private/private'
 import { Route as PrivateLogoutImport } from './routes/_private/logout'
 import { Route as PrivateContributionsImport } from './routes/_private/contributions'
+import { Route as AuthAuthLinkedinImport } from './routes/_auth/auth.linkedin'
 
 // Create Virtual Routes
 
@@ -37,6 +39,11 @@ const PublicRoute = PublicImport.update({
 
 const PrivateRoute = PrivateImport.update({
   id: '/_private',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthRoute = AuthImport.update({
+  id: '/_auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -87,10 +94,22 @@ const PrivateContributionsRoute = PrivateContributionsImport.update({
   getParentRoute: () => PrivateRoute,
 } as any)
 
+const AuthAuthLinkedinRoute = AuthAuthLinkedinImport.update({
+  path: '/auth/linkedin',
+  getParentRoute: () => AuthRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
     '/_private': {
       id: '/_private'
       path: ''
@@ -168,12 +187,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexLazyImport
       parentRoute: typeof PublicImport
     }
+    '/_auth/auth/linkedin': {
+      id: '/_auth/auth/linkedin'
+      path: '/auth/linkedin'
+      fullPath: '/auth/linkedin'
+      preLoaderRoute: typeof AuthAuthLinkedinImport
+      parentRoute: typeof AuthImport
+    }
   }
 }
 
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
+  AuthRoute: AuthRoute.addChildren({ AuthAuthLinkedinRoute }),
   PrivateRoute: PrivateRoute.addChildren({
     PrivateContributionsRoute,
     PrivateLogoutRoute,
@@ -197,8 +224,15 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.jsx",
       "children": [
+        "/_auth",
         "/_private",
         "/_public"
+      ]
+    },
+    "/_auth": {
+      "filePath": "_auth.jsx",
+      "children": [
+        "/_auth/auth/linkedin"
       ]
     },
     "/_private": {
@@ -255,6 +289,10 @@ export const routeTree = rootRoute.addChildren({
     "/_public/": {
       "filePath": "_public/index.lazy.jsx",
       "parent": "/_public"
+    },
+    "/_auth/auth/linkedin": {
+      "filePath": "_auth/auth.linkedin.jsx",
+      "parent": "/_auth"
     }
   }
 }

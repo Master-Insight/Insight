@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { BiSolidUserDetail } from 'react-icons/bi'
-import SectionWForm from '../../layout/frame/Section.Form';
+import SectionWForm from '../../../ui/sections/Section.Form';
 
 const UserBio = ({user, itsMyProfile, action }) => {
   // Datos a pasar

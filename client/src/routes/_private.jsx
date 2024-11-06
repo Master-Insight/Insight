@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
-import LayoutFooter from '../modules/layout/frame/LayoutFooter'
-import NavBar from '../modules/layout/navbar/Navbar'
-import LayoutTime from '../modules/layout/frame/LayoutTime';
+import NavBar from '../layouts/navbar/Navbar';
+import LayoutTime from '../layouts/LayoutTime';
+import LayoutFooter from '../layouts/LayoutFooter';
 
 export const Route = createFileRoute('/_private')({
   beforeLoad: async ({context}) => {

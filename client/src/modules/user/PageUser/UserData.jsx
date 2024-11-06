@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { BiCalendar, BiLogoGmail, BiLogoLinkedin, BiPhone } from 'react-icons/bi'
-import SectionWForm from '../../layout/frame/Section.Form';
 import { z } from 'zod';
 import ContactButton from './ContactButton';
+import SectionWForm from '../../../ui/sections/Section.Form';
 
 const UserData = ({user, itsMyProfile, action }) => {
   /*
