@@ -23,7 +23,10 @@ export const getProfileData = async (accessToken) => {
       education: educationResponse.data,
     };
   } catch (error) {
-    console.error('Error fetching LinkedIn data:', error.message);
+    // Registra el error en detalle para diagnóstico
+    console.error('Error fetching LinkedIn data:', error.response?.data || error.message);
+
+    // Lanza un error más claro para el controlador
     throw new Error('Unable to fetch LinkedIn profile data');
   }
 };

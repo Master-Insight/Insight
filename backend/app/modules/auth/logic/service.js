@@ -71,7 +71,7 @@ export default class Service extends CustomService {
 
   // EXTERNAL AUTH API
   registerOrLogin = async (profile, externalApi) => {
-    console.log("profile: ",profile);
+    // console.log("profile: ",profile);
     const {data, access_token} = profile
     // console.log("externalApi: ",externalApi);
     
