@@ -21,9 +21,9 @@ export default class Controller {
       }
       const { token } = await this.service.registerOrLogin(profile, "Linkedin")
       // TODO debe redirigir al front
-      res.sendCreated({token}, "Auth success")
+      // res.sendCreated({token}, "Auth success")
       // Redirecciona al frontend con el token en la URL
-      //res.redirect(`${configEnv.cors_origin}/auth/linkedin?token=${token}`);
+      res.redirect(`${configEnv.cors_origin}/auth/linkedin?token=${token}`);
     } catch(error) {
       next(error)
     }
