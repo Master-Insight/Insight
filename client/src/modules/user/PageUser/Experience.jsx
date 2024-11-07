@@ -1,9 +1,12 @@
 import React from 'react'
+import Section from '../../../ui/sections/Section'
 
 const Experience = () => {
   
   return (
-    <p>Experience</p>
+    <Section title="Experience">
+      <p>...</p>
+    </Section>
   )
 }
 
