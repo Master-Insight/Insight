@@ -17,11 +17,6 @@ router
 .post   ('/userrecovery',   celebrate(validSchema.email),    controller.userRecovery)
 .put    ('/userrecovery',   handleAuth(users), celebrate(validSchema.updatePassword), controller.userRecoveryPassword)
 
-// LinkedIn
-router
-.get    ('/linkedin', controller.autorize)
-.get    ('/linkedin/callback', controller.redirect)
-
 export default router
 
  // https://github.com/alexmarinmendez/linkedin-signin-with-openid
