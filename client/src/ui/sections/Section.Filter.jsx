@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BiSolidPlusSquare } from 'react-icons/bi';
 
+// Es una section que muestra "cards" y filtradas tipo "tienda online" y un boton para agregar mas elementos
+
 // Subcomponentes
 import ElementList from "./SectionWFilter/Elements";
 import FilterSection from "./SectionWFilter/Filters";
