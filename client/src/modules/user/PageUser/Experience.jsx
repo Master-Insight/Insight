@@ -44,7 +44,7 @@ const Experience = () => {
     let result = {}
     if (match) {
       const position = match[1].trim();
-      const companyAndWorkMode = match[2].split('  ').map(s => s.trim());
+      const companyAndWorkMode = match[2].split(' · ').map(s => s.trim());
       const auxPeriod = match[3].split(' · ').map(s => s.trim());
       const workPeriod = auxPeriod[0].split(' - ').map(s => s.trim());
       const location = match[4].trim();
