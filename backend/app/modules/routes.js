@@ -2,6 +2,8 @@ import { Router } from "express";
 import usersRouter from "../modules/users/api/routes.js";
 import authRouter from "../modules/auth/api/routes.js";
 import contributionsRouter from "../modules/contributions/api/routes.js";
+import experiencesRouter from "../modules/experiences/api/routes.js";
+import certificationsRouter from "../modules/certifications/api/routes.js";
 import valuesRouter from "../modules/utils/routes.js";
 import linkedinRouter from "../modules/linkedin/api/routes.js";
 
@@ -15,6 +17,8 @@ router.use('/v1/users/', usersRouter)
 router.use('/v1/auth/', authRouter)
 router.use('/v1/contributions/', contributionsRouter)
 router.use('/v1/values/', valuesRouter)
+router.use('/v1/experiences/', experiencesRouter)
+router.use('/v1/certifications/', certificationsRouter)
 
 router.use('/v1/linkedin/', linkedinRouter)
 router.get('/v1/pruebas', async (req, res, next) => {res.send("Prueba Pruebas")});

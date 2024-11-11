@@ -2,12 +2,9 @@ import { Schema, model} from 'mongoose'
 
 const thisSchema = new Schema({
   // basic properties
-  position:    { type: String,   required: true, },
-  company:     { type: String,   required: true, },
-  workMode:    { type: String,   required: true, },
-  startDate:   { type: String,   required: true, },
+  title:    { type: String,   required: true, },
+  academy:     { type: String,   required: true, },
   endDate:     { type: String,   required: true, },
-  location:    { type: String,   required: true, },
   aptitudes:   [{ type: String }],
   description: { type: String,   required: true, },
 
@@ -25,6 +22,6 @@ const thisSchema = new Schema({
   },
 })
 
-const dataModel = model('experiences', thisSchema)
+const dataModel = model('certifications', thisSchema)
 
 export default dataModel
