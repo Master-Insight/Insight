@@ -42,8 +42,9 @@ const PageUser = ({user}) => {
         <Contributions user={user} itsMyProfile={itsMyProfile} action={handleAction} />}
       
 
-      <Proyects/>
       <Experience/>
+      
+      <Proyects/>
       <ButtonsList/>
     </>
   )
