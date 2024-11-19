@@ -3,7 +3,7 @@ import { Schema, model} from 'mongoose'
 const thisSchema = new Schema({
   // basic properties
   title:  { type: String,   required: true, maxLength: 250 },
-  description: { type: String,   required: true },
+  description: { type: String  },
   users:        [{ type: Schema.Types.ObjectId, ref: 'users', required: true }],
   comments:   [{ type: Schema.Types.ObjectId, ref: 'comments', required: true }],
 
@@ -18,6 +18,15 @@ const thisSchema = new Schema({
     createdAt: 'created',
     updatedAt: 'updated'
   },
+})
+
+thisSchema.pre('find', function (next) {
+  this
+    .populate({
+      path: 'users',
+      select: '_id full_name'
+    })
+  next();
 })
 
 const dataModel = model('projects', thisSchema)
