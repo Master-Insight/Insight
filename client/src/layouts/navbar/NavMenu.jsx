@@ -10,6 +10,7 @@ const privateNavItems = [
   { name: 'Private', path: '/private' },
   { name: 'Profile', path: '/profile' },
   { name: 'Contributions', path: '/contributions' },
+  { name: 'Proyectos', path: '/projects' },
   { name: 'Logout', path: '/logout' },
   { name: 'HomePublic', path: '/' },
 ];

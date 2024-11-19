@@ -19,6 +19,7 @@ import { Route as AuthImport } from './routes/_auth'
 import { Route as PublicRegisterImport } from './routes/_public/register'
 import { Route as PublicLoginImport } from './routes/_public/login'
 import { Route as PublicUsernameImport } from './routes/_public/$username'
+import { Route as PrivateProjectsImport } from './routes/_private/projects'
 import { Route as PrivateProfileImport } from './routes/_private/profile'
 import { Route as PrivatePrivateImport } from './routes/_private/private'
 import { Route as PrivateLogoutImport } from './routes/_private/logout'
@@ -72,6 +73,11 @@ const PublicLoginRoute = PublicLoginImport.update({
 const PublicUsernameRoute = PublicUsernameImport.update({
   path: '/$username',
   getParentRoute: () => PublicRoute,
+} as any)
+
+const PrivateProjectsRoute = PrivateProjectsImport.update({
+  path: '/projects',
+  getParentRoute: () => PrivateRoute,
 } as any)
 
 const PrivateProfileRoute = PrivateProfileImport.update({
@@ -152,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateProfileImport
       parentRoute: typeof PrivateImport
     }
+    '/_private/projects': {
+      id: '/_private/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof PrivateProjectsImport
+      parentRoute: typeof PrivateImport
+    }
     '/_public/$username': {
       id: '/_public/$username'
       path: '/$username'
@@ -206,6 +219,7 @@ export const routeTree = rootRoute.addChildren({
     PrivateLogoutRoute,
     PrivatePrivateRoute,
     PrivateProfileRoute,
+    PrivateProjectsRoute,
   }),
   PublicRoute: PublicRoute.addChildren({
     PublicUsernameRoute,
@@ -241,7 +255,8 @@ export const routeTree = rootRoute.addChildren({
         "/_private/contributions",
         "/_private/logout",
         "/_private/private",
-        "/_private/profile"
+        "/_private/profile",
+        "/_private/projects"
       ]
     },
     "/_public": {
@@ -268,6 +283,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_private/profile": {
       "filePath": "_private/profile.jsx",
+      "parent": "/_private"
+    },
+    "/_private/projects": {
+      "filePath": "_private/projects.jsx",
       "parent": "/_private"
     },
     "/_public/$username": {
