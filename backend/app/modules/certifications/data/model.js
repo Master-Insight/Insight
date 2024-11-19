@@ -2,9 +2,14 @@ import { Schema, model} from 'mongoose'
 
 const thisSchema = new Schema({
   // basic properties
-  title:  { type: String,   required: true, maxLength: 50 },
+  title:    { type: String,   required: true, },
+  academy:     { type: String,   required: true, },
+  endDate:     { type: String,   required: true, },
+  aptitudes:   [{ type: String }],
+  description: { type: String,   required: true, },
 
   // aditional properties
+  user:        { type: Schema.Types.ObjectId, ref: 'users', required: true },
 
   // data of conection
   created:     { type: Date,   default: Date.now,  immutable: true, },
@@ -17,6 +22,6 @@ const thisSchema = new Schema({
   },
 })
 
-const dataModel = model('this', thisSchema)
+const dataModel = model('certifications', thisSchema)
 
 export default dataModel

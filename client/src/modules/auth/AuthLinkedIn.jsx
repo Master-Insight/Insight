@@ -3,7 +3,7 @@ import React from 'react'
 
 const AuthLinkedIn = () => {
   return (
-    <Link to={`${import.meta.env.VITE_BACKEND_URL}/v1/auth/linkedin`} className="inline-block">
+    <Link to={`${import.meta.env.VITE_BACKEND_URL}/v1/linkedin/auth`} className="inline-block">
       <img 
         src="/signin-button-linkedin.png" 
         alt="Sign in with LinkedIn" 

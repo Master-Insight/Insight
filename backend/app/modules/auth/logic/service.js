@@ -72,20 +72,21 @@ export default class Service extends CustomService {
   // EXTERNAL AUTH API
   registerOrLogin = async (profile, externalApi) => {
     console.log("profile: ",profile);
-    console.log("externalApi: ",externalApi);
+    const {data, access_token} = profile
+    // console.log("externalApi: ",externalApi);
     
     let user
     if (externalApi === "Linkedin" )
     {
-      const email = Array.isArray(profile.email[0]) ? profile.email[0].value : profile.email
+      const email = Array.isArray(data.email[0]) ? data.email[0].value : data.email
       user = await this.dao.getBy({email});
 
       if (!user) {
         const newUser = {
-          given_name: profile.name.givenName,
-          family_name: profile.name.familyName,
+          given_name: data.name.givenName,
+          family_name: data.name.familyName,
           email,
-          linkedinId: profile.id,
+          linkedinId: data.id,
           role: "Client",
         };
         user = await this.dao.create(newUser);
@@ -96,9 +97,11 @@ export default class Service extends CustomService {
       // actualiziación de valores si no existen
       let updatedFields = {};
 
-      if (!user.linkedinId) updatedFields.linkedinId = profile.sub;
-      if (!user.linkedinVerified) updatedFields.linkedinId = profile.email_verified;
-      if (!user.photo) updatedFields.photo = profile.picture;
+      if (!user.linkedinId) updatedFields.linkedinId = data.sub;
+      if (!user.linkedinVerified) updatedFields.linkedinId = data.email_verified;
+      if (!user.photo) updatedFields.photo = data.picture;
+      updatedFields.linkedinAccessToken = access_token.access_token;
+      updatedFields.linkedinTokenExpiry = Date.now() + access_token.expires_in * 1000;
 
       if (Object.keys(updatedFields).length > 0) { user = await this.dao.update({_id: user._id}, updatedFields)}
     }

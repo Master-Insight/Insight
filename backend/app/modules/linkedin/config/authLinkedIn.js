@@ -25,6 +25,8 @@ export const Redirect = async (code) => {
     .then(response => response)
     .catch(error => error)
 
+    //console.log(access_token.data);
+    
     if (access_token?.data?.access_token) {
         const data = await axios({
             url: 'https://api.linkedin.com/v2/userinfo', // /userinfo
@@ -36,8 +38,13 @@ export const Redirect = async (code) => {
         .then(response => response)
         .catch(error => error)
     
-        return data.data
+        return {
+            data: data.data,
+            access_token: access_token.data
+        }
     }
 
-    return access_token.data
+    return {
+        access_token: access_token.data
+    }
 }

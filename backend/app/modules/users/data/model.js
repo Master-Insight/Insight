@@ -25,6 +25,8 @@ const userSchema = new Schema({
   // external Auth
   linkedinId:          String,
   linkedinVerified:    Boolean,
+  linkedinAccessToken: String,
+  linkedinTokenExpiry: Number,
   
   // data of conection
   created:     { type: Date,   default: Date.now,  immutable: true, },

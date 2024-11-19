@@ -7,7 +7,7 @@ import { zodSearchValidator } from '@tanstack/router-zod-adapter'
 import Card from '../../modules/contributions/Card';
 import { getContributions } from '../../services/api/contributions.services';
 import { getShortAssociates } from '../../services/api/users.services';
-import { getLanguajes } from '../../services/api/values.services';
+import { getAppLinks, getFrameworks, getLanguajes, getProfessions } from '../../services/api/values.services';
 import Frame from '../../ui/boxes/Frame';
 import { alertBasic } from '../../ui/popups/alerts';
 import SectionWFilters from '../../ui/sections/Section.Filter';

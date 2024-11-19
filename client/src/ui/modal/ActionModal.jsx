@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { zodValidator } from '@tanstack/zod-form-adapter';
 
 /**
- * CreateModal Componente
+ * CreateModal Componente Boton que abre un modal con opciones para rellenar (titulo, descripcion, etc) y que al "guardar" ejecuta una función
  * @param {string} title - Título del modal
  * @param {function} functionApi - Función API que se ejecuta en el submit
  * @param {array} fields - Arreglo de campos dinámicos a renderizar en el formulario
@@ -116,7 +116,7 @@ const DynamicField = ({ field, form, parentName }) => {
         <div className="my-3">
           <label htmlFor={fieldName} className="block mb-2 text-gray-700">
             {Icon && <Icon className="inline-block mr-2" />}
-            {label}:
+            <span dangerouslySetInnerHTML={{ __html: label }}/>:
           </label>
 
           {/* Textarea */}
@@ -309,7 +309,8 @@ const ActionModal = ({ title, fields, functionApi, defaultValues}) => {
       {/* Botón para abrir el modal */}
       <button onClick={handleEditClick}
           className="px-4 py-2 bg-blue-500 text-white rounded-md flex items-center hover:bg-blue-600 transition-all">
-          {title} <BiSolidPlusSquare className="ml-2" />
+          {title}
+          <BiSolidPlusSquare className="ml-2" />
       </button>
 
       {/* Modal con formulario dinámico */}
