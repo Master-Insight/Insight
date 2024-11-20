@@ -12,3 +12,16 @@ export const getProjects = async () => {
     });
   }
 };
+
+export const getProject = async (pId) => {
+  try {
+    const response = await axiosInstance.get(`/v1/projects/${pId}`);    
+    const projects = response.data?.data || null;
+    return projects;
+  } catch (error) {
+    throw new Response('Error al cargar los datos', {
+      status: 500,
+      statusText: error.message,
+    });
+  }
+};

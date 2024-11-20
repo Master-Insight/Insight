@@ -19,11 +19,12 @@ import { Route as AuthImport } from './routes/_auth'
 import { Route as PublicRegisterImport } from './routes/_public/register'
 import { Route as PublicLoginImport } from './routes/_public/login'
 import { Route as PublicUsernameImport } from './routes/_public/$username'
-import { Route as PrivateProjectsImport } from './routes/_private/projects'
 import { Route as PrivateProfileImport } from './routes/_private/profile'
 import { Route as PrivatePrivateImport } from './routes/_private/private'
 import { Route as PrivateLogoutImport } from './routes/_private/logout'
 import { Route as PrivateContributionsImport } from './routes/_private/contributions'
+import { Route as PrivateProjectsIndexImport } from './routes/_private/projects/index'
+import { Route as PrivateProjectsProjectIdImport } from './routes/_private/projects/$projectId'
 import { Route as AuthAuthLinkedinImport } from './routes/_auth/auth.linkedin'
 
 // Create Virtual Routes
@@ -75,11 +76,6 @@ const PublicUsernameRoute = PublicUsernameImport.update({
   getParentRoute: () => PublicRoute,
 } as any)
 
-const PrivateProjectsRoute = PrivateProjectsImport.update({
-  path: '/projects',
-  getParentRoute: () => PrivateRoute,
-} as any)
-
 const PrivateProfileRoute = PrivateProfileImport.update({
   path: '/profile',
   getParentRoute: () => PrivateRoute,
@@ -97,6 +93,16 @@ const PrivateLogoutRoute = PrivateLogoutImport.update({
 
 const PrivateContributionsRoute = PrivateContributionsImport.update({
   path: '/contributions',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateProjectsIndexRoute = PrivateProjectsIndexImport.update({
+  path: '/projects/',
+  getParentRoute: () => PrivateRoute,
+} as any)
+
+const PrivateProjectsProjectIdRoute = PrivateProjectsProjectIdImport.update({
+  path: '/projects/$projectId',
   getParentRoute: () => PrivateRoute,
 } as any)
 
@@ -158,13 +164,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateProfileImport
       parentRoute: typeof PrivateImport
     }
-    '/_private/projects': {
-      id: '/_private/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof PrivateProjectsImport
-      parentRoute: typeof PrivateImport
-    }
     '/_public/$username': {
       id: '/_public/$username'
       path: '/$username'
@@ -207,6 +206,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAuthLinkedinImport
       parentRoute: typeof AuthImport
     }
+    '/_private/projects/$projectId': {
+      id: '/_private/projects/$projectId'
+      path: '/projects/$projectId'
+      fullPath: '/projects/$projectId'
+      preLoaderRoute: typeof PrivateProjectsProjectIdImport
+      parentRoute: typeof PrivateImport
+    }
+    '/_private/projects/': {
+      id: '/_private/projects/'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof PrivateProjectsIndexImport
+      parentRoute: typeof PrivateImport
+    }
   }
 }
 
@@ -219,7 +232,8 @@ export const routeTree = rootRoute.addChildren({
     PrivateLogoutRoute,
     PrivatePrivateRoute,
     PrivateProfileRoute,
-    PrivateProjectsRoute,
+    PrivateProjectsProjectIdRoute,
+    PrivateProjectsIndexRoute,
   }),
   PublicRoute: PublicRoute.addChildren({
     PublicUsernameRoute,
@@ -256,7 +270,8 @@ export const routeTree = rootRoute.addChildren({
         "/_private/logout",
         "/_private/private",
         "/_private/profile",
-        "/_private/projects"
+        "/_private/projects/$projectId",
+        "/_private/projects/"
       ]
     },
     "/_public": {
@@ -285,10 +300,6 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_private/profile.jsx",
       "parent": "/_private"
     },
-    "/_private/projects": {
-      "filePath": "_private/projects.jsx",
-      "parent": "/_private"
-    },
     "/_public/$username": {
       "filePath": "_public/$username.jsx",
       "parent": "/_public"
@@ -312,6 +323,14 @@ export const routeTree = rootRoute.addChildren({
     "/_auth/auth/linkedin": {
       "filePath": "_auth/auth.linkedin.jsx",
       "parent": "/_auth"
+    },
+    "/_private/projects/$projectId": {
+      "filePath": "_private/projects/$projectId.jsx",
+      "parent": "/_private"
+    },
+    "/_private/projects/": {
+      "filePath": "_private/projects/index.jsx",
+      "parent": "/_private"
     }
   }
 }
