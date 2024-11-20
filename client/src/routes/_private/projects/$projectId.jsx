@@ -16,7 +16,7 @@ function ThisProject () {
   
   return (
     <Frame>
-      <h2 className='text-3xl font-bold'>{project.title}</h2>
+      <h2 className='text-3xl font-bold'>Proyecto: {project.title}</h2>
     </Frame>
   )
 }
