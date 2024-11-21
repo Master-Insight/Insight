@@ -11,7 +11,7 @@ const controller = new Controller()
 
 // sesions
 router
-.get   ('/',       handleAuth(users), controller.get)
+.get   ('/',       handleAuth('admin'), controller.get)
 .get   ('/:eid',   handleAuth(users), controller.getById)
 .post  ('/',       handleAuth(users), controller.create)
 .put   ('/:eid',   handleAuth(users), controller.updateId)
