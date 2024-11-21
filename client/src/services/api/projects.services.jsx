@@ -15,7 +15,7 @@ export const getProjects = async () => {
 
 export const getProject = async (pId) => {
   try {
-    const response = await axiosInstance.get(`/v1/projects/${pId}`);    
+    const response = await axiosInstance.get(`/v1/projects/id/${pId}`);    
     const projects = response.data?.data || null;
     return projects;
   } catch (error) {

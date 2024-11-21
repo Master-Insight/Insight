@@ -73,3 +73,6 @@ export const FRAMEWORKS = {
   Kotlin: ['Ktor', 'Spring'],
   'No Code': ['Webflow', 'Bubble']
 };
+
+export const PROJECT_STATUS = ['new', 'pending', 'in-progress', 'to review', 'completed', 'archived']
+export const PROJECT_PRORITY = ['low', 'medium', 'high', 'urgent']
