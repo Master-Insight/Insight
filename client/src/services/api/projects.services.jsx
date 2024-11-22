@@ -32,7 +32,7 @@ export const getProject = async (pId) => {
 
 export const getProjectTasks = async (pId) => {
   try {
-    const response = await axiosInstance.get(`/v1/projects/task?projectId=${pId}`);
+    const response = await axiosInstance.get(`/v1/projects/task/?projectId=${pId}`);
     const projects = response.data?.data || null;
     return projects;
   } catch (error) {

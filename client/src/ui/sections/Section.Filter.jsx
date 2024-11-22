@@ -13,11 +13,14 @@ const SectionWFilters = ({
   data,
   isFilterPending, 
   isElementPending, 
-  config
+  config,
+  css = ""
   }) => {
 
   const [filteredData, setFilteredData] = useState(data);
   const [activeFilters, setActiveFilters] = useState(config.activeFilter || {});
+  console.log(filteredData);
+  
 
   //console.log("data: ",filteredData);
   // console.log("activeFilters: ",activeFilters);
@@ -63,7 +66,7 @@ const SectionWFilters = ({
 
   return (
     <>
-      <div className="flex justify-between">
+      <div className={`flex justify-between ${css}`}>
         <h2 className="text-3xl font-semibold mb-2">{title}</h2>
         <ActionModal 
           title={"Agregar nuevo elemento"}

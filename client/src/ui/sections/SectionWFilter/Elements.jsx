@@ -4,6 +4,9 @@ const ElementList = ({ data, config, isPending }) => {
 
   if (isPending) { return <div className="text-center text-gray-500">Cargando...</div>; }
 
+  console.log(data);
+  console.log(config);
+  
   return (
     <div>
       {data.length === 0 ? (
