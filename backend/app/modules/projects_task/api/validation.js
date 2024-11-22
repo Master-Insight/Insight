@@ -2,6 +2,14 @@ import { Joi, Segments } from 'celebrate';
 import { PROJECT_PRORITY, PROJECT_STATUS } from '../../utils/valueList.js';
 
 const validSchema = {
+  get: {
+    [Segments.QUERY]: Joi.object().keys({
+      title: Joi.string().max(250).optional(),
+      projectId: Joi.string().hex().length(24).optional(),
+      parentTaskId: Joi.string().hex().length(24).optional(),
+      assignedTo: Joi.string().hex().length(24).optional(),
+    }),
+  },
   create: {
     [Segments.BODY]: Joi.object().keys({
       title: Joi.string().max(250).required(),

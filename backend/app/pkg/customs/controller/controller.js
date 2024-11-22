@@ -27,8 +27,9 @@ export default class CustomController {
   // CRUD
   get = async (req, res, next) => {
     try {
-      const element = await this.service.get();
-      res.sendSuccessOrNotFound(element);
+      const filter = { ...req.query }; // Toma directamente todos los parámetros de consulta
+      const elements = await this.service.get(filter);
+      res.sendSuccessOrNotFound(elements);
     } catch (error) {
       next(error);
     }
@@ -163,4 +164,3 @@ export default class CustomController {
     }
   };
 }
-    
