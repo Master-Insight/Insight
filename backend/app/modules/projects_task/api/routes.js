@@ -11,10 +11,10 @@ const controller = new Controller()
 
 // sesions
 router
-.get   ('/',       handleAuth(users), controller.get)
-.get   ('/:eid',   handleAuth(users), controller.getById)
-.post  ('/',       handleAuth(users), controller.create)
-.put   ('/:eid',   handleAuth(users), controller.updateId)
-.delete('/:eid',   handleAuth(users), controller.deleteId)
+  .get('/', handleAuth(users), controller.get)
+  .get('/:eid', handleAuth(users), controller.getById)
+  .post('/', handleAuth(users), celebrate(validSchema.create), controller.create)
+  .put('/:eid', handleAuth(users), controller.updateId)
+  .delete('/:eid', handleAuth(users), controller.deleteId)
 
 export default router
