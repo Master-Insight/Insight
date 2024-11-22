@@ -7,7 +7,7 @@ import { zodSearchValidator } from '@tanstack/router-zod-adapter'
 import Card from '../../modules/contributions/Card';
 import { getContributions } from '../../services/api/contributions.services';
 import { getShortAssociates } from '../../services/api/users.services';
-import { getAppLinks, getFrameworks, getLanguajes, getProfessions } from '../../services/api/values.services';
+import { getValues } from '../../services/api/values.services';
 import Frame from '../../ui/boxes/Frame';
 import { alertBasic } from '../../ui/popups/alerts';
 import SectionWFilters from '../../ui/sections/Section.Filter';
@@ -27,7 +27,7 @@ export const Route = createFileRoute('/_private/contributions')({
 })
 
 // Funcion que define el componente
-function ContributionsPage () {
+function ContributionsPage() {
   const { title } = Route.useSearch()
 
   const [isLoading, setIsLoading] = useState(true);
@@ -43,9 +43,9 @@ function ContributionsPage () {
   const { currentUser } = useAppStore();
 
   // console.log(filterusers);
-  
+
   const [isFilterLoading, setIsFilterLoading] = useState(false);
-  
+
   useEffect(() => {
     const fetchContributions = async () => {
       setIsLoading(true);
@@ -58,7 +58,7 @@ function ContributionsPage () {
         setIsLoading(false);
       }
     };
-  
+
     fetchContributions();
   }, [refresh]);
 
@@ -68,14 +68,16 @@ function ContributionsPage () {
     const fetchFilters = async () => {
       setIsFilterLoading(true);
       try {
-        const [languagesResp, professionsResp, frameworksResp, appsResp, usersResp] = await Promise.all([getLanguajes(), getProfessions(), getFrameworks(), getAppLinks(), getShortAssociates()]);
+        const [languagesResp, professionsResp, frameworksResp, appsResp, usersResp] = await Promise.all([
+          getValues("languajes"), getValues("professions"), getValues("frameworks"), getValues("applinks"), getShortAssociates()
+        ]);
         setLanguages(languagesResp);
         setProfessions(professionsResp);
         setFrameworks(Object.values(frameworksResp).flat());
         setApps(appsResp);
         const orderUser = usersResp.sort((a, b) => a.full_name.localeCompare(b.full_name)).map(user => ({ value: user._id, label: user.full_name }))
         setFilterUsers(orderUser)
-        
+
       } catch (err) {
         console.log(err);
         setError('Hubo un error al cargar los select');
@@ -88,7 +90,7 @@ function ContributionsPage () {
 
   const config = {
     filters: [
-      { key: "user", label: "Usuario", type: "select", object: "label", options: filterusers, function: (value)=>{return value+"a"} }, //filterusers options: ["a", "b"]
+      { key: "user", label: "Usuario", type: "select", object: "label", options: filterusers, function: (value) => { return value + "a" } }, //filterusers options: ["a", "b"]
       { key: "title", label: "Título", type: "text" },
       { key: "professions", label: "Profesiones", type: "select", options: professions },
       { key: "languages", label: "Lenguaje", type: "select", options: languages },
@@ -96,85 +98,95 @@ function ContributionsPage () {
     ],
     activeFilter: { title },
     fields: [
-      { name: "title",
+      {
+        name: "title",
         label: "Titulo",
-        icon:BiBookmark,
+        icon: BiBookmark,
         type: "text",
         validation: z.string().min(5, "El titulo debe tener al menos 5 caracteres"),
         default: "Aquí va un titulo",
       },
-      { name: "description",
+      {
+        name: "description",
         label: "Descripción",
         icon: BiClipboard,
         type: "textarea",
         validation: z.string().min(5, "La descripción debe tener al menos 5 caracteres",),
         default: "Contar que hace",
       },
-      { name: "code", 
-        label: "Codigo", 
-        icon: BiCodeBlock, 
-        type: "textarea" 
+      {
+        name: "code",
+        label: "Codigo",
+        icon: BiCodeBlock,
+        type: "textarea"
       },
-      { name: "example", 
-        label: "Ejemplo", 
-        icon: BiCodeBlock, 
-        type: "textarea" 
+      {
+        name: "example",
+        label: "Ejemplo",
+        icon: BiCodeBlock,
+        type: "textarea"
       },
-      { name: "contributedBy", 
-        label: "Id Usuario", 
-        type: "text", 
-        noEditable: true , 
+      {
+        name: "contributedBy",
+        label: "Id Usuario",
+        type: "text",
+        noEditable: true,
         default: "66e74c2a0ff43936ac565d5d"
       },
-      { name: "professions", 
-        label: "Profesión", 
-        icon: BiBriefcase, 
+      {
+        name: "professions",
+        label: "Profesión",
+        icon: BiBriefcase,
         type: "array",
         itemType: "select",
         enum: professions,
-        default: ["Backend"], 
+        default: ["Backend"],
       },
-      { name: "languages", 
-        label: "Lenguaje", icon: BiCode, 
+      {
+        name: "languages",
+        label: "Lenguaje", icon: BiCode,
         type: "array",
         itemType: "select",
         enum: languages,
-        default: ["JavaScript"], 
+        default: ["JavaScript"],
       },
-      { name: "frameworks", 
-        label: "Frameworks", 
-        icon: BiCode, 
+      {
+        name: "frameworks",
+        label: "Frameworks",
+        icon: BiCode,
         type: "array",
         itemType: "select",
-        enum: frameworks ,
-        default: [], 
+        enum: frameworks,
+        default: [],
       },
-      { name: "libraries", 
-        label: "Librerias", 
-        icon: BiBookmark, 
+      {
+        name: "libraries",
+        label: "Librerias",
+        icon: BiBookmark,
         type: "array",
         itemType: "text",
         default: [],
       },
-      { name: "links", 
-        label: "Links", 
+      {
+        name: "links",
+        label: "Links",
         type: 'array',
-        itemType: 'fields', 
+        itemType: 'fields',
         fields: [  // Campos dentro de cada objeto del array
-        {
-          name: "appName",
-          label: "Plataforma",
-          type: "select",
-          itemType: "text",
-          enum: apps,
-          validation: z.enum(apps)
-        },
-        {
-          name: "url",
-          label: "URL",
-          type: "text",
-          validation: z.string().url("Debe ser una URL válida")
-        }],
+          {
+            name: "appName",
+            label: "Plataforma",
+            type: "select",
+            itemType: "text",
+            enum: apps,
+            validation: z.enum(apps)
+          },
+          {
+            name: "url",
+            label: "URL",
+            type: "text",
+            validation: z.string().url("Debe ser una URL válida")
+          }],
         default: [],
       }
     ],
@@ -236,7 +248,7 @@ function ContributionsPage () {
 
           isFilterPending={isFilterLoading}
 
-          config= {config}
+          config={config}
         />
       </Frame>
     </>
